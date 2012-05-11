@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # build enyo
-pushd ../enyo/source/minify > /dev/null
+pushd ../enyo/minify > /dev/null
 ./minify.sh
 popd > /dev/null
 
