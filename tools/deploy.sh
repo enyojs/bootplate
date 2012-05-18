@@ -38,16 +38,13 @@ copy step
 EOF
 
 # make deploy folder
-mkdir -p "$TARGET"
+mkdir -p "$TARGET/lib"
 
 # copy root folder files
 cp "$SOURCE/index.html" "$SOURCE/icon.png" "$TARGET"
 
 # copy assets and build
 cp -r "$SOURCE/assets" "$SOURCE/build" "$TARGET"
-
-# copy library items
-mkdir "$TARGET/lib"
 
 for i in $SOURCE/lib/*; do
 	o=${i##*/}
