@@ -1,14 +1,37 @@
 @ECHO OFF
 
-REM the location of this batch file
-SET SOURCE=%~dp0
+REM the deploy target folder
+SET FOLDER=deploy
+
+REM the deploy target suffix, i.e. <projectName>[suffix]
+SET SUFFIX= - %date% - %time%
+
+REM remove spaces, convert / : to _, convert . to ~
+set SUFFIX=%SUFFIX: =%
+set SUFFIX=%SUFFIX:/=-%
+set SUFFIX=%SUFFIX::=-%
+set SUFFIX=%SUFFIX:.=~%
+
+REM enyo location
+SET ENYO=..\enyo
+
+REM the grandparent folder for this batch file
+SET SOURCE=%~dp0..\
 
 REM extract project folder name
 FOR /D %%I IN ("%SOURCE%\.") DO SET NAME=%%~nxI
 
-REM target names
-SET DEPLOY=%NAME%-deploy
-SET TARGET="%SOURCE%..\%DEPLOY%"
+REM prepare target name
+SET DEPLOY=%NAME%%SUFFIX%
+
+REM make sure (deploy) FOLDER exists
+SET TARGET="%SOURCE%%FOLDER%"
+IF NOT EXIST %TARGET% mkdir %TARGET%
+
+REM pull path for this deploy
+SET TARGET="%SOURCE%%FOLDER%\%DEPLOY%"
+
+REM quotes around path that might have spaces
 SET SOURCE="%SOURCE%"
 
 ECHO This script can create a deployment in %TARGET%
@@ -29,23 +52,18 @@ ECHO build step
 ECHO ==========
 ECHO.
 
-REM FIXME: we push/pop to satisfy minify.bat requirement that package.js be in CWD
-
-PUSHD "%CD%"
-CD "%SOURCE%/minify"
-
 REM build enyo
-CALL ..\enyo\minify\minify.bat
+CALL %ENYO%\minify\minify.bat
 
 REM build app
-CALL ..\enyo\tools\minify.bat package.js -output ..\build\app
-
-POPD
+CALL %ENYO%\tools\minify.bat package.js -output ..\build\app
 
 ECHO =========
 ECHO copy step
 ECHO =========
 ECHO.
+
+ECHO ON
 
 REM make deploy folder
 MKDIR %TARGET%

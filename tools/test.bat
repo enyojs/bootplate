@@ -1,0 +1,3 @@
+echo %date% - %time%
+
+pause
