@@ -56,3 +56,7 @@ The output of the `deploy` scripts will minify your appliaction, and copy the ne
 If the libraries have a compatible `deploy` script, they will be executed, and a minimal copy will be placed in the deployment's lib folder.
 
 If no `deploy` script is found for the library, all of the library is copied into the lib folder to provide maximum safety.
+
+If you are adding a library, please add a `deploy.sh` file and `deploy.bat` file similar to the ones in `lib/onyx`.
+
+If no images or files are needed from the library, just include blank (and executable) copies of the deploy scripts.
