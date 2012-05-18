@@ -63,8 +63,6 @@ ECHO copy step
 ECHO =========
 ECHO.
 
-ECHO ON
-
 REM make deploy folder
 MKDIR %TARGET%
 
