@@ -1,21 +1,27 @@
 #!/bin/bash
 
-# The location of this script
-SOURCE=$(cd `dirname $0`; pwd)
+# the deploy target folder
+FOLDER=deploy
+
+# the deploy target suffix
+SUFFIX=`date "+-%Y_%m_%d-%I_%M_%S%p"`
+
+# The grandparent folder for this script
+SOURCE=$(cd `dirname $0`/../; pwd)
 
 # extract project folder name
 NAME=${SOURCE##*/}
 
 # target names
-DEPLOY="$NAME-deploy"
-TARGET="$SOURCE/../$DEPLOY"
-
-echo "This script can create a deployment in $TARGET"
+DEPLOY="$NAME$SUFFIX"
+TARGET="$SOURCE/$FOLDER/$DEPLOY"
 
 if [ -d $TARGET ]; then
 	echo "$DEPLOY folder already exists, please rename or remove it and try again."
-	exit
+	exit 1
 fi
+
+echo "This script can create a deployment in $TARGET"
 
 cat <<EOF
 ==========
@@ -23,11 +29,7 @@ build step
 ==========
 EOF
 
-# FIXME: we push/pop to satisfy minify.bat requirement that package.js be in CWD
-
-pushd "$SOURCE/minify"
 ./minify.sh
-popd
 
 cat <<EOF
 =========
@@ -36,24 +38,24 @@ copy step
 EOF
 
 # make deploy folder
-mkdir $TARGET
+mkdir -p "$TARGET"
 
 # copy root folder files
-cp $SOURCE/index.html $SOURCE/icon.png $TARGET
+cp "$SOURCE/index.html" "$SOURCE/icon.png" "$TARGET"
 
 # copy assets and build
-cp -r $SOURCE/assets $SOURCE/build $TARGET
+cp -r "$SOURCE/assets" "$SOURCE/build" "$TARGET"
 
 # copy library items
-mkdir $TARGET/lib
+mkdir "$TARGET/lib"
 
 for i in $SOURCE/lib/*; do
 	o=${i##*/}
 	if [ -x $i/deploy.sh ]; then
 		echo "Deploying $o"
-		$i/deploy.sh $TARGET/lib/$o
+		$i/deploy.sh "$TARGET/lib/$o"
 	else
 		echo "Copying $o"
-		cp -r $i $TARGET/lib
+		cp -r $i "$TARGET/lib"
 	fi
 done
