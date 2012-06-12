@@ -3,4 +3,4 @@ bootplate
 
 Application template for packaged Enyo
 
-Refer to the [Wiki](http://github.com/enyojs/bootplate/wiki) for how to get started.
+Refer to the [Wiki](https://github.com/enyojs/enyo/wiki/Bootplate) for how to get started.
