@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd `dirname $0`
+
 # the deploy target folder
 FOLDER=deploy
 

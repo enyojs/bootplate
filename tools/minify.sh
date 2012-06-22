@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd `dirname $0`
+
 # build enyo
 pushd ../enyo/minify > /dev/null
 ./minify.sh
