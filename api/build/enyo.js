@@ -268,7 +268,7 @@ if (!{
 toString: null
 }.propertyIsEnumerable("toString")) {
 var e = [ "toString", "toLocaleString", "valueOf", "hasOwnProperty", "isPrototypeOf", "propertyIsEnumerable", "constructor" ];
-for (var f = 0, g; g = donEnums[f]; f++) c.call(a, g) && b.push(g);
+for (var f = 0, g; g = e[f]; f++) c.call(a, g) && b.push(g);
 }
 return b;
 }, enyo.cloneArray = function(a, b, c) {
@@ -381,9 +381,9 @@ return a *= 2, a < 1 ? Math.pow(a, 2) / 2 : -1 * (--a * (a - 2) - 1) / 2;
 linear: function(a) {
 return a;
 }
-}, enyo.easedLerp = function(a, b, c) {
-var d = (enyo.now() - a) / b;
-return d >= 1 ? 1 : c(d);
+}, enyo.easedLerp = function(a, b, c, d) {
+var e = (enyo.now() - a) / b;
+return d ? e >= 1 ? 0 : 1 - c(1 - e) : e >= 1 ? 1 : c(e);
 };
 
 // Oop.js
@@ -685,6 +685,11 @@ layoutKind: ""
 handlers: {
 onresize: "resizeHandler"
 },
+statics: {
+_resizeFlags: {
+showingOnly: !0
+}
+},
 create: function() {
 this.controls = [], this.children = [], this.containerChanged(), this.inherited(arguments), this.layoutKindChanged();
 },
@@ -767,14 +772,14 @@ reflow: function() {
 this.layout && this.layout.reflow();
 },
 resized: function() {
-this.waterfall("onresize"), this.waterfall("onpostresize");
+this.waterfall("onresize", enyo.UiComponent._resizeFlags), this.waterfall("onpostresize", enyo.UiComponent._resizeFlags);
 },
 resizeHandler: function() {
 this.reflow();
 },
 waterfallDown: function(a, b, c) {
 for (var d in this.$) this.$[d] instanceof enyo.UiComponent || this.$[d].waterfall(a, b, c);
-for (var e = 0, f = this.children, g; g = f[e]; e++) g.waterfall(a, b, c);
+for (var e = 0, f = this.children, g; g = f[e]; e++) (g.showing || !b || !b.showingOnly) && g.waterfall(a, b, c);
 },
 getBubbleTarget: function() {
 return this.parent;
@@ -785,12 +790,15 @@ if (c) return new c(b);
 }, enyo.master = new enyo.Component({
 name: "master",
 notInstanceOwner: !0,
+eventFlags: {
+showingOnly: !0
+},
 getId: function() {
 return "";
 },
 isDescendantOf: enyo.nop,
 bubble: function(a, b, c) {
-a == "onresize" ? (enyo.master.waterfallDown("onresize"), enyo.master.waterfallDown("onpostresize")) : enyo.Signals.send(a, b);
+a == "onresize" ? (enyo.master.waterfallDown("onresize", this.eventFlags), enyo.master.waterfallDown("onpostresize", this.eventFlags)) : enyo.Signals.send(a, b);
 }
 });
 
@@ -1104,7 +1112,7 @@ name: "enyo.WebService",
 kind: enyo._AjaxComponent,
 published: {
 jsonp: !1,
-callback: "callback",
+callbackName: "callback",
 charset: null
 },
 events: {
@@ -1121,7 +1129,7 @@ sendJsonp: function(a) {
 var b = new enyo.JsonpRequest;
 for (var c in {
 url: 1,
-callback: 1,
+callbackName: 1,
 charset: 1
 }) b[c] = this[c];
 return this.sendAsync(b, a);
@@ -1175,6 +1183,9 @@ var a = this.getFirstElementByTagName("html");
 a && (a.className += " enyo-document-fit");
 var b = this.getFirstElementByTagName("body");
 b && (b.className += " enyo-body-fit"), enyo.bodyIsFitting = !0;
+},
+getWindowWidth: function() {
+return window.innerWidth ? window.innerWidth : document.body && document.body.offsetWidth ? document.body.offsetWidth : document.compatMode == "CSS1Compat" && document.documentElement && document.documentElement.offsetWidth ? document.documentElement.offsetWidth : 320;
 }
 };
 
@@ -1579,6 +1590,9 @@ regex: /iP(?:hone|ad;(?: U;)? CPU) OS (\d+)/
 }, {
 platform: "webos",
 regex: /(?:web|hpw)OS\/(\d+)/
+}, {
+platform: "safari",
+regex: /Version\/(\d+)[.\d]+\s+Safari/
 } ];
 for (var d = 0, e, f, g; e = c[d]; d++) {
 f = e.regex.exec(a);
@@ -1820,7 +1834,7 @@ move: function(a) {
 if (this.tracking) {
 this.track(a);
 if (!a.which) {
-this.stopDragging(a), this.tracking = !1;
+this.stopDragging(a), this.cancelHold(), this.tracking = !1;
 return;
 }
 this.dragEvent ? this.sendDrag(a) : this.dy * this.dy + this.dx * this.dx >= this.hysteresisSquared && (this.sendDragStart(a), this.cancelHold());
@@ -1863,7 +1877,7 @@ metaKey: c.metaKey,
 shiftKey: c.shiftKey,
 srcEvent: c.srcEvent
 };
-return i.preventDefault = enyo.gesture.preventDefault, i.disablePrevention = enyo.gesture.disablePrevention, i;
+return enyo.platform.ie == 8 && i.target && (i.pageX = i.clientX + i.target.scrollLeft, i.pageY = i.clientY + i.target.scrollTop), i.preventDefault = enyo.gesture.preventDefault, i.disablePrevention = enyo.gesture.disablePrevention, i;
 },
 sendDragStart: function(a) {
 this.dragEvent = this.makeDragEvent("dragstart", this.target, a), enyo.dispatch(this.dragEvent);
@@ -2403,19 +2417,20 @@ b.which && (this.canVertical && b.vertical || this.canHorizontal && b.horizontal
 
 enyo.kind({
 name: "enyo.ScrollThumb",
+axis: "v",
 minSize: 4,
 cornerSize: 6,
 classes: "enyo-thumb",
-axis: "v",
 create: function() {
 this.inherited(arguments);
 var a = this.axis == "v";
-this.dimension = a ? "height" : "width", this.offset = a ? "top" : "left", this.translation = a ? "translateY" : "translateX", this.positionMethod = a ? "getScrollTop" : "getScrollLeft", this.sizeDimension = a ? "clientHeight" : "clientWidth", this.addClass("enyo-" + this.axis + "thumb"), enyo.dom.canAccelerate() && enyo.dom.transformValue(this, "translateZ", 0);
+this.dimension = a ? "height" : "width", this.offset = a ? "top" : "left", this.translation = a ? "translateY" : "translateX", this.positionMethod = a ? "getScrollTop" : "getScrollLeft", this.sizeDimension = a ? "clientHeight" : "clientWidth", this.addClass("enyo-" + this.axis + "thumb"), this.transform = enyo.dom.canTransform(), enyo.dom.canAccelerate() && enyo.dom.transformValue(this, "translateZ", 0);
 },
 sync: function(a) {
 this.scrollBounds = a._getScrollBounds(), this.update(a);
 },
 update: function(a) {
+if (this.showing) {
 var b = this.dimension, c = this.offset, d = this.scrollBounds[this.sizeDimension], e = this.scrollBounds[b], f = 0, g = 0, h = 0;
 if (d >= e) {
 this.hide();
@@ -2425,7 +2440,12 @@ a.isOverscrolling() && (h = a.getOverScrollBounds()["over" + c], f = Math.abs(h)
 var i = a[this.positionMethod]() - h, j = d - this.cornerSize, k = Math.floor(d * d / e - f);
 k = Math.max(this.minSize, k);
 var l = Math.floor(j * i / e + g);
-l = Math.max(0, Math.min(j - this.minSize, l)), this.needed = k < d, this.needed && this.hasNode() ? (this._pos !== l && (this._pos = l, enyo.dom.transformValue(this, this.translation, l + "px")), this._size !== k && (this._size = k, this.node.style[b] = this.domStyles[b] = k + "px")) : this.hide();
+l = Math.max(0, Math.min(j - this.minSize, l)), this.needed = k < d, this.needed && this.hasNode() ? (this._pos !== l && (this._pos = l, this.transform ? enyo.dom.transformValue(this, this.translation, l + "px") : this.axis == "v" ? this.setBounds({
+top: l + "px"
+}) : this.setBounds({
+left: l + "px"
+})), this._size !== k && (this._size = k, this.node.style[b] = this.domStyles[b] = k + "px")) : this.hide();
+}
 },
 setShowing: function(a) {
 if (a && a != this.showing && this.scrollBounds[this.sizeDimension] >= this.scrollBounds[this.dimension]) return;
@@ -2448,6 +2468,7 @@ enyo.job.stop(this.id + "hide");
 enyo.kind({
 name: "enyo.TouchScrollStrategy",
 kind: "ScrollStrategy",
+overscroll: !0,
 preventDragPropagation: !0,
 published: {
 vertical: "default",
@@ -2498,7 +2519,7 @@ onscroll: enyo.bubbler
 classes: "enyo-touch-scroller"
 } ],
 create: function() {
-this.inherited(arguments), this.accel = enyo.dom.canAccelerate();
+this.inherited(arguments), this.transform = enyo.dom.canTransform(), this.transform || this.overscroll && this.$.client.applyStyle("position", "relative"), this.accel = enyo.dom.canAccelerate();
 var a = "enyo-touch-strategy-container";
 enyo.platform.ios && this.accel && (a += " enyo-composite"), this.scrimChanged(), this.container.addClass(a), this.translation = this.accel ? "translate3d" : "translate";
 },
@@ -2524,7 +2545,7 @@ isScrolling: function() {
 return this.$.scrollMath.isScrolling();
 },
 isOverscrolling: function() {
-return this.$.scrollMath.isInOverScroll();
+return this.overscroll ? this.$.scrollMath.isInOverScroll() : !1;
 },
 domScroll: function() {
 this.isScrolling() || (this.calcBoundaries(), this.syncScrollMath(), this.thumb && this.alertThumbs());
@@ -2609,7 +2630,7 @@ scrollMathStart: function(a) {
 this.scrollNode && (this.calcBoundaries(), this.thumb && this.showThumbs());
 },
 scrollMathScroll: function(a) {
-this.effectScroll(-a.x, -a.y), this.thumb && this.updateThumbs();
+this.overscroll ? this.effectScroll(-a.x, -a.y) : this.effectScroll(-Math.min(a.leftBoundary, Math.max(a.rightBoundary, a.x)), -Math.min(a.topBoundary, Math.max(a.bottomBoundary, a.y))), this.thumb && this.updateThumbs();
 },
 scrollMathStop: function(a) {
 this.effectScrollStop(), this.thumb && this.delayHideThumbs(100);
@@ -2629,8 +2650,11 @@ effectScrollStop: function() {
 this.effectOverscroll(null, null);
 },
 effectOverscroll: function(a, b) {
-var c = this.scrollNode, d = "0,", e = "0", f = this.accel ? ",0" : "";
-b !== null && Math.abs(b - c.scrollTop) > 1 && (e = c.scrollTop - b + "px"), a !== null && Math.abs(a - c.scrollLeft) > 1 && (d = c.scrollLeft - a + "px,"), enyo.dom.transformValue(this.$.client, this.translation, d + e + f);
+var c = this.scrollNode, d = "0", e = "0", f = this.accel ? ",0" : "";
+b !== null && Math.abs(b - c.scrollTop) > 1 && (e = c.scrollTop - b), a !== null && Math.abs(a - c.scrollLeft) > 1 && (d = c.scrollLeft - a), this.transform ? enyo.dom.transformValue(this.$.client, this.translation, d + "px, " + e + "px" + f) : this.$.client.setBounds({
+left: d + "px",
+top: e + "px"
+});
 },
 getOverScrollBounds: function() {
 var a = this.$.scrollMath;
@@ -2728,7 +2752,7 @@ scrollMathStart: function(a) {
 this.inherited(arguments), this.scrollStarting = !0, this.startX = 0, this.startY = 0, !this.translateOptimized && this.scrollNode && (this.startX = this.getScrollLeft(), this.startY = this.getScrollTop());
 },
 scrollMathScroll: function(a) {
-this.scrollLeft = -a.x, this.scrollTop = -a.y, this.isScrolling() && (this.$.scrollMath.isScrolling() && this.effectScroll(this.startX - this.scrollLeft, this.startY - this.scrollTop), this.thumb && this.updateThumbs());
+this.overscroll ? (this.scrollLeft = -a.x, this.scrollTop = -a.y) : (this.scrollLeft = -Math.min(a.leftBoundary, Math.max(a.rightBoundary, a.x)), this.scrollTop = -Math.min(a.topBoundary, Math.max(a.bottomBoundary, a.y))), this.isScrolling() && (this.$.scrollMath.isScrolling() && this.effectScroll(this.startX - this.scrollLeft, this.startY - this.scrollTop), this.thumb && this.updateThumbs());
 },
 effectScroll: function(a, b) {
 var c = a + "px, " + b + "px" + (this.accel ? ",0" : "");
@@ -2772,6 +2796,7 @@ onScroll: "scroll",
 onScrollStop: "scrollStop"
 },
 classes: "enyo-scroller",
+touchOverscroll: !0,
 preventDragPropagation: !0,
 preventScrollPropagation: !0,
 statics: {
@@ -2822,6 +2847,7 @@ maxHeight: this.maxHeight,
 kind: this.strategyKind,
 thumb: this.thumb,
 preventDragPropagation: this.preventDragPropagation,
+overscroll: this.touchOverscroll,
 isChrome: !0
 } ]);
 },
@@ -2936,10 +2962,19 @@ destroy: function() {
 this.stop(), this.inherited(arguments);
 },
 play: function(a) {
-return this.stop(), a && enyo.mixin(this, a), this.t0 = this.t1 = enyo.now(), this.value = this.startValue, this.job = !0, this.requestNext(), this;
+return this.stop(), this.reversed = !1, a && enyo.mixin(this, a), this.t0 = this.t1 = enyo.now(), this.value = this.startValue, this.job = !0, this.next(), this;
 },
 stop: function() {
 if (this.isAnimating()) return this.cancel(), this.fire("onStop"), this;
+},
+reverse: function() {
+if (this.isAnimating()) {
+this.reversed = !this.reversed;
+var a = this.t1 = enyo.now(), b = a - this.t0;
+this.t0 = a + b - this.duration;
+var c = this.startValue;
+return this.startValue = this.endValue, this.endValue = c, this;
+}
 },
 isAnimating: function() {
 return Boolean(this.job);
@@ -2955,7 +2990,7 @@ return this.dt >= this.duration;
 },
 next: function() {
 this.t1 = enyo.now(), this.dt = this.t1 - this.t0;
-var a = this.fraction = enyo.easedLerp(this.t0, this.duration, this.easingFunction);
+var a = this.fraction = enyo.easedLerp(this.t0, this.duration, this.easingFunction, this.reversed);
 this.value = this.startValue + a * (this.endValue - this.startValue), a >= 1 || this.shouldEnd() ? (this.value = this.endValue, this.fraction = 1, this.fire("onStep"), this.fire("onEnd"), this.cancel()) : (this.fire("onStep"), this.requestNext());
 },
 fire: function(a) {
@@ -2981,11 +3016,15 @@ a.fit !== null && a.addRemoveClass("enyo-fit", a.fit);
 
 enyo.kind({
 name: "enyo.Image",
+noEvents: !1,
 tag: "img",
 attributes: {
 onload: enyo.bubbler,
 onerror: enyo.bubbler,
 draggable: "false"
+},
+create: function() {
+this.noEvents && (delete this.attributes.onload, delete this.attributes.onerror), this.inherited(arguments);
 }
 });
 
@@ -3061,14 +3100,29 @@ disabled: !1,
 value: ""
 },
 defaultFocus: !1,
+statics: {
+osInfo: [ {
+os: "android",
+version: 3
+}, {
+os: "ios",
+version: 5
+} ],
+hasContentEditable: function() {
+for (var a = 0, b, c; b = enyo.RichText.osInfo[a]; a++) if (enyo.platform[b.os] < b.version) return !1;
+return !0;
+}
+},
 kind: enyo.Input,
-tag: "div",
 attributes: {
 contenteditable: !0
 },
 handlers: {
 onfocus: "focusHandler",
 onblur: "blurHandler"
+},
+create: function() {
+this.setTag(enyo.RichText.hasContentEditable() ? "div" : "textarea"), this.inherited(arguments);
 },
 focusHandler: function() {
 this._value = this.getValue();
@@ -3235,7 +3289,7 @@ classes: "enyo-tool-decorator"
 enyo.kind({
 name: "enyo.Button",
 kind: enyo.ToolDecorator,
-tag: "Button",
+tag: "button",
 published: {
 disabled: !1
 },
@@ -3334,6 +3388,13 @@ index: a,
 item: b
 });
 this.render();
+},
+renderRow: function(a) {
+var b = this.itemAtIndex(a);
+this.doSetupItem({
+index: a,
+item: b
+});
 }
 }), enyo.kind({
 name: "enyo.OwnerProxy",
@@ -3502,5 +3563,65 @@ return this.show(), !0;
 },
 requestHide: function(a, b) {
 return this.hide(), !0;
+}
+});
+
+// Selection.js
+
+enyo.kind({
+name: "enyo.Selection",
+kind: enyo.Component,
+published: {
+multi: !1
+},
+events: {
+onSelect: "",
+onDeselect: "",
+onChange: ""
+},
+create: function() {
+this.clear(), this.inherited(arguments);
+},
+multiChanged: function() {
+this.multi || this.clear(), this.doChange();
+},
+highlander: function(a) {
+this.multi || this.deselect(this.lastSelected);
+},
+clear: function() {
+this.selected = {};
+},
+isSelected: function(a) {
+return this.selected[a];
+},
+setByKey: function(a, b, c) {
+if (b) this.selected[a] = c || !0, this.lastSelected = a, this.doSelect({
+key: a,
+data: this.selected[a]
+}); else {
+var d = this.isSelected(a);
+delete this.selected[a], this.doDeselect({
+key: a,
+data: d
+});
+}
+this.doChange();
+},
+deselect: function(a) {
+this.isSelected(a) && this.setByKey(a, !1);
+},
+select: function(a, b) {
+this.multi ? this.setByKey(a, !this.isSelected(a), b) : this.isSelected(a) || (this.highlander(), this.setByKey(a, !0, b));
+},
+toggle: function(a, b) {
+!this.multi && this.lastSelected != a && this.deselect(this.lastSelected), this.setByKey(a, !this.isSelected(a), b);
+},
+getSelected: function() {
+return this.selected;
+},
+remove: function(a) {
+var b = {};
+for (var c in this.selected) c < a ? b[c] = this.selected[c] : c > a && (b[c - 1] = this.selected[c]);
+this.selected = b;
 }
 });
