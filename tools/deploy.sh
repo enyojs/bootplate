@@ -48,13 +48,13 @@ cp "$SOURCE/index.html" "$SOURCE/icon.png" "$TARGET"
 # copy assets and build
 cp -r "$SOURCE/assets" "$SOURCE/build" "$TARGET"
 
-for i in $SOURCE/lib/*; do
+for i in "$SOURCE/lib/"*; do
 	o=${i##*/}
 	if [ -x $i/deploy.sh ]; then
 		echo "Deploying $o"
 		$i/deploy.sh "$TARGET/lib/$o"
 	else
 		echo "Copying $o"
-		cp -r $i "$TARGET/lib"
+		cp -r "$i" "$TARGET/lib"
 	fi
 done
