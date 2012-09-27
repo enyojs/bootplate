@@ -22,14 +22,14 @@ REM extract project folder name
 FOR /D %%I IN ("%SOURCE%\.") DO SET NAME=%%~nxI
 
 REM prepare target name
-SET DEPLOY=%NAME%%SUFFIX%
+IF NOT DEFINED DEPLOY SET DEPLOY=%NAME%%SUFFIX%
 
 REM make sure (deploy) FOLDER exists
-SET TARGET="%SOURCE%%FOLDER%"
-IF NOT EXIST %TARGET% mkdir %TARGET%
+SET TARGETROOT="%SOURCE%%FOLDER%"
+IF NOT EXIST %TARGETROOT% mkdir %TARGETROOT%
 
 REM pull path for this deploy
-SET TARGET="%SOURCE%%FOLDER%\%DEPLOY%"
+IF NOT DEFINED TARGET SET TARGET="%SOURCE%%FOLDER%\%DEPLOY%"
 
 REM quotes around path that might have spaces
 SET SOURCE="%SOURCE%"
@@ -39,7 +39,7 @@ ECHO.
 
 IF NOT EXIST %TARGET% GOTO deploy
 
-ECHO "%DEPLOY%" folder already exists, please rename or remove it and try again.
+ECHO "%TARGET%" folder already exists, please rename or remove it and try again.
 ECHO.
 
 PAUSE

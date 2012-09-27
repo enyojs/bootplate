@@ -15,11 +15,16 @@ SOURCE=$(cd `dirname $0`/../; pwd)
 NAME=${SOURCE##*/}
 
 # target names
-DEPLOY="$NAME$SUFFIX"
-TARGET="$SOURCE/$FOLDER/$DEPLOY"
+if [ -z "${DEPLOY}" ]; then
+    DEPLOY="$NAME$SUFFIX"
+fi
+
+if [ -z "${TARGET}" ]; then
+    TARGET="$SOURCE/$FOLDER/$DEPLOY"
+fi    
 
 if [ -d $TARGET ]; then
-	echo "$DEPLOY folder already exists, please rename or remove it and try again."
+	echo "$TARGET folder already exists, please rename or remove it and try again."
 	exit 1
 fi
 
