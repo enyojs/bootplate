@@ -28,6 +28,33 @@ if [ -d $TARGET ]; then
 	exit 1
 fi
 
+# use less by default
+NO_LESS=""
+
+USAGE="Usage: `basename $0` [-h] [-c] [-o output_dir] args"
+
+# Parse command line options.
+while getopts hco: OPT; do
+    case "$OPT" in
+        h)
+            echo $USAGE
+            exit 0
+            ;;
+        o)
+            TARGET=$OPTARG
+            rm -rf $TARGET
+            ;;
+        c)
+            NO_LESS="-no-less"
+            ;;
+        \?)
+            # getopts issues an error message
+            echo $USAGE >&2
+            exit 1
+            ;;
+    esac
+done
+	
 echo "This script can create a deployment in $TARGET"
 
 cat <<EOF
@@ -36,7 +63,7 @@ build step
 ==========
 EOF
 
-./minify.sh
+./minify.sh $NO_LESS
 
 cat <<EOF
 =========
