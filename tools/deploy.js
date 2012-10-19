@@ -18,7 +18,7 @@ var stat, ppwd, lib, script, scripts = {};
 // Parse arguments
 
 //var suffix = strftime("-%Y_%m_%d-%I_%M_%S%p");	// non-monotonic, but same as before
-var suffix = strftime("-%Y-%m-%d_%H:%M:%S");		// monotonic & ISO-compliant
+var suffix = strftime("-%Y-%m-%d_%H-%M-%S");		// monotonic & ISO-compliant
 
 var node = process.argv[0],
     source = path.resolve(__dirname, '..'),
