@@ -94,10 +94,10 @@ ECHO ==========
 ECHO.
 
 REM build enyo
-CALL %ENYO%\minify\minify.bat
+CALL "%ENYO%\minify\minify.bat"
 
 REM build app
-CALL %ENYO%\tools\minify.bat package.js -output ..\build\app
+CALL "%ENYO%\tools\minify.bat" package.js -output ..\build\app
 
 ECHO =========
 ECHO copy step
