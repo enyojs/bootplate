@@ -1,8 +1,9 @@
 {
-	"version": "2.0.1",
+	"version": "2.1",
 	"packages": [
 		{"name": "enyo", "path": "../enyo/source"},
 		{"name": "layout/fittable", "path": "../lib/layout/fittable"},
+		{"name": "layout/imageview", "path": "../lib/layout/imageview"},
 		{"name": "layout/list", "path": "../lib/layout/list"},
 		{"name": "layout/panels", "path": "../lib/layout/panels"},
 		{"name": "layout/slideable", "path": "../lib/layout/slideable"},
