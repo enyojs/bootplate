@@ -87,6 +87,6 @@ for i in "$SOURCE/lib/"*; do
 		$i/deploy.sh "$TARGET/lib/$o"
 	else
 		echo "Copying $o"
-		cp -r "$i" "$TARGET/lib"
+		cp -rL "$i" "$TARGET/lib"
 	fi
 done
