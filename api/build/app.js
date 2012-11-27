@@ -819,7 +819,7 @@ return this.controlsIndex = t, i;
 statics: {
 positionControl: function(e, t, n) {
 var r = n || "px";
-if (!this.updating) if (enyo.dom.canTransform() && !enyo.platform.android) {
+if (!this.updating) if (enyo.dom.canTransform() && !enyo.platform.android && enyo.platform.ie !== 10) {
 var i = t.left, s = t.top;
 i = enyo.isString(i) ? i : i && i + r, s = enyo.isString(s) ? s : s && s + r, enyo.dom.transform(e, {
 translateX: i || null,
@@ -1180,8 +1180,11 @@ this.setLayoutKind(this.arrangerKind);
 narrowFitChanged: function() {
 this.addRemoveClass("enyo-panels-fit-narrow", this.narrowFit);
 },
+destroy: function() {
+this.destroying = !0, this.inherited(arguments);
+},
 removeControl: function(e) {
-this.inherited(arguments), this.controls.length > 0 && this.isPanel(e) && (this.setIndex(Math.max(this.index - 1, 0)), this.flow(), this.reflow());
+this.inherited(arguments), this.destroying && this.controls.length > 0 && this.isPanel(e) && (this.setIndex(Math.max(this.index - 1, 0)), this.flow(), this.reflow());
 },
 isPanel: function() {
 return !0;
@@ -1456,6 +1459,57 @@ this.$.client && (this.expanded ? this._expand() : this._collapse());
 }
 });
 
+// ImageViewPin.js
+
+enyo.kind({
+name: "enyo.ImageViewPin",
+kind: "enyo.Control",
+published: {
+highlightAnchorPoint: !1,
+anchor: {
+top: 0,
+left: 0
+},
+position: {
+top: 0,
+left: 0
+}
+},
+style: "position:absolute;z-index:1000;width:0px;height:0px;",
+handlers: {
+onPositionPin: "reAnchor"
+},
+create: function() {
+this.inherited(arguments), this.styleClientControls(), this.positionClientControls(), this.highlightAnchorPointChanged(), this.anchorChanged();
+},
+styleClientControls: function() {
+var e = this.getClientControls();
+for (var t = 0; t < e.length; t++) e[t].applyStyle("position", "absolute");
+},
+positionClientControls: function() {
+var e = this.getClientControls();
+for (var t = 0; t < e.length; t++) for (p in this.position) e[t].applyStyle(p, this.position[p] + "px");
+},
+highlightAnchorPointChanged: function() {
+this.highlightAnchorPoint ? this.addClass("pinDebug") : this.removeClass("pinDebug");
+},
+anchorChanged: function() {
+var e = null, t = null;
+for (t in this.anchor) {
+e = this.anchor[t].toString().match(/^(\d+(?:\.\d+)?)(.*)$/);
+if (!e) continue;
+this.anchor[t + "Coords"] = {
+value: e[1],
+units: e[2] || "px"
+};
+}
+},
+reAnchor: function(e, t) {
+var n = t.scale, r = t.bounds, i = this.anchor.right ? this.anchor.rightCoords.units == "px" ? r.width + r.x - this.anchor.rightCoords.value * n : r.width * (100 - this.anchor.rightCoords.value) / 100 + r.x : this.anchor.leftCoords.units == "px" ? this.anchor.leftCoords.value * n + r.x : r.width * this.anchor.leftCoords.value / 100 + r.x, s = this.anchor.bottom ? this.anchor.bottomCoords.units == "px" ? r.height + r.y - this.anchor.bottomCoords.value * n : r.height * (100 - this.anchor.bottomCoords.value) / 100 + r.y : this.anchor.topCoords.units == "px" ? this.anchor.topCoords.value * n + r.y : r.height * this.anchor.topCoords.value / 100 + r.y;
+this.applyStyle("left", i + "px"), this.applyStyle("top", s + "px");
+}
+});
+
 // ImageView.js
 
 enyo.kind({
@@ -1499,7 +1553,7 @@ ondown: "down"
 } ]
 } ],
 create: function() {
-this.inherited(arguments), this.canTransform = enyo.dom.canTransform(), this.canTransform || this.$.image.applyStyle("position", "relative"), this.canAccelerate = enyo.dom.canAccelerate(), this.bufferImage = new Image, this.bufferImage.onload = enyo.bind(this, "imageLoaded"), this.bufferImage.onerror = enyo.bind(this, "imageError"), this.srcChanged(), this.getStrategy().setDragDuringGesture(!1);
+this.inherited(arguments), this.canTransform = enyo.dom.canTransform(), this.canTransform || this.$.image.applyStyle("position", "relative"), this.canAccelerate = enyo.dom.canAccelerate(), this.bufferImage = new Image, this.bufferImage.onload = enyo.bind(this, "imageLoaded"), this.bufferImage.onerror = enyo.bind(this, "imageError"), this.srcChanged(), this.getStrategy().setDragDuringGesture(!1), this.getStrategy().$.scrollMath.start();
 },
 down: function(e, t) {
 t.preventDefault();
@@ -1520,7 +1574,7 @@ srcChanged: function() {
 this.src && this.src.length > 0 && this.bufferImage && this.src != this.bufferImage.src && (this.bufferImage.src = this.src);
 },
 imageLoaded: function(e) {
-this.originalWidth = this.bufferImage.width, this.originalHeight = this.bufferImage.height, this.scaleChanged(), this.$.image.setSrc(this.bufferImage.src), enyo.dom.transformValue(this.getStrategy().$.client, "translate3d", "0px, 0px, 0");
+this.originalWidth = this.bufferImage.width, this.originalHeight = this.bufferImage.height, this.scaleChanged(), this.$.image.setSrc(this.bufferImage.src), enyo.dom.transformValue(this.getStrategy().$.client, "translate3d", "0px, 0px, 0"), this.positionClientControls(this.scale);
 },
 resizeHandler: function() {
 this.inherited(arguments), this.$.image.src && this.scaleChanged();
@@ -1575,7 +1629,7 @@ height: this.imageBounds.height + "px",
 left: this.imageBounds.left + "px",
 top: this.imageBounds.top + "px"
 });
-this.setScrollLeft(n), this.setScrollTop(r);
+this.setScrollLeft(n), this.setScrollTop(r), this.positionClientControls(e);
 },
 limitScale: function(e) {
 return this.disableZoom ? e = this.scale : e > this.maxScale ? e = this.maxScale : e < this.minScale && (e = this.minScale), e;
@@ -1639,6 +1693,12 @@ zoomAnimationEnd: function(e, t) {
 this.doZoom({
 scale: this.scale
 }), this.$.animator.ratioLock = undefined;
+},
+positionClientControls: function(e) {
+this.waterfallDown("onPositionPin", {
+scale: e,
+bounds: this.imageBounds
+});
 }
 });
 
@@ -2293,16 +2353,9 @@ return Documentor.findByProperty(this.objects, "name", e);
 findByTopic: function(e) {
 return Documentor.findByProperty(this.objects, "topic", e);
 },
-getKindList: function(e, t) {
-this.debug && enyo.log("getEnyoKindList --> result - regexp: " + e + " group: " + t);
-var n = [];
-for (var r = 0, i; i = this.objects[r]; r++) i.type === "kind" && i.token === "enyo.kind" && i.group === t && e.test(i.name) && (this.debug && enyo.log("getEnyoKindList --> this.objects[" + r + "]: type: " + i.type + " token: " + i.token + " group: " + i.group + " name: " + i.name), n.push(i.name));
-return n;
-},
-getFunctionList: function(e, t) {
-var n = [];
-for (var r = 0, i; i = this.objects[r]; r++) i.type === "function" && i.group === t && e.test(i.name) && n.push(i.name);
-return n;
+search: function(e, t, n) {
+var r = enyo.filter(this.objects, e, n);
+return enyo.map(r, t, n);
 },
 addModules: function(e) {
 enyo.forEach(e, this.addModule, this), this.objects.sort(Indexer.nameCompare);

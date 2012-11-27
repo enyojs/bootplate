@@ -16,7 +16,7 @@ node: r
 var t = enyo.locateScript(e);
 if (t) {
 enyo.args.root = (enyo.args.root || t.path).replace("/source", "");
-for (var n = 0, r; r = t.node.attributes.item(n); n++) enyo.args[r.nodeName] = r.value;
+for (var n = 0, r = t.node.attributes.length, i; n < r && (i = t.node.attributes.item(n)); n++) enyo.args[i.nodeName] = i.value;
 }
 })();
 
@@ -474,7 +474,7 @@ _log: function(e, t) {
 if (enyo.logging.shouldLog(e)) try {
 throw new Error;
 } catch (n) {
-enyo.logging._log(e, [ t.callee.caller.nom + ": " ].concat(enyo.cloneArray(t))), console.log(n.stack);
+enyo.logging._log(e, [ t.callee.caller.nom + ": " ].concat(enyo.cloneArray(t))), enyo.log(n.stack);
 }
 }
 }), enyo._objectCount = 0, enyo.Object.subclass = function(e, t) {
@@ -654,7 +654,7 @@ for (var i in n) this.addEvent(i, n[i], r);
 }
 }, enyo.Component.addEvent = function(e, t, n) {
 var r, i;
-enyo.isString(t) ? (e.slice(0, 2) != "on" && (console.warn("enyo.Component.addEvent: event names must start with 'on'. " + n.kindName + " event '" + e + "' was auto-corrected to 'on" + e + "'."), e = "on" + e), r = t, i = "do" + enyo.cap(e.slice(2))) : (r = t.value, i = t.caller), n[e] = r, n[i] || (n[i] = function(t) {
+enyo.isString(t) ? (e.slice(0, 2) != "on" && (enyo.warn("enyo.Component.addEvent: event names must start with 'on'. " + n.kindName + " event '" + e + "' was auto-corrected to 'on" + e + "'."), e = "on" + e), r = t, i = "do" + enyo.cap(e.slice(2))) : (r = t.value, i = t.caller), n[e] = r, n[i] || (n[i] = function(t) {
 return this.bubble(e, t);
 });
 }, enyo.Component.prefixFromKindName = function(e) {
@@ -947,19 +947,23 @@ document.cookie = r;
 
 enyo.xhr = {
 request: function(e) {
-var t = this.getXMLHttpRequest(e.url), n = e.method || "GET", r = !e.sync;
+var t = this.getXMLHttpRequest(e), n = e.method || "GET", r = !e.sync;
 e.username ? t.open(n, enyo.path.rewrite(e.url), r, e.username, e.password) : t.open(n, enyo.path.rewrite(e.url), r), enyo.mixin(t, e.xhrFields), e.callback && this.makeReadyStateHandler(t, e.callback);
-if (e.headers) for (var i in e.headers) t.setRequestHeader(i, e.headers[i]);
-return typeof t.overrideMimeType == "function" && e.mimeType && t.overrideMimeType(e.mimeType), t.send(e.body || null), !r && e.callback && t.onreadystatechange(t), t;
+if (e.headers && t.setRequestHeader) for (var i in e.headers) t.setRequestHeader(i, e.headers[i]);
+return n !== "GET" && t.setRequestHeader("cache-control", "no-cache"), typeof t.overrideMimeType == "function" && e.mimeType && t.overrideMimeType(e.mimeType), t.send(e.body || null), !r && e.callback && t.onreadystatechange(t), t;
 },
 cancel: function(e) {
 e.onload && (e.onload = null), e.onreadystatechange && (e.onreadystatechange = null), e.abort && e.abort();
 },
 makeReadyStateHandler: function(e, t) {
 window.XDomainRequest && e instanceof XDomainRequest && (e.onload = function() {
-t.apply(null, [ e.responseText, e ]);
+var n;
+typeof e.responseText == "string" && (n = e.responseText), t.apply(null, [ n, e ]);
 }), e.onreadystatechange = function() {
-e.readyState == 4 && t.apply(null, [ e.responseText, e ]);
+if (e.readyState == 4) {
+var n;
+typeof e.responseText == "string" && (n = e.responseText), t.apply(null, [ n, e ]);
+}
 };
 },
 inOrigin: function(e) {
@@ -970,7 +974,7 @@ return n;
 },
 getXMLHttpRequest: function(e) {
 try {
-if (window.XDomainRequest && !this.inOrigin(e) && !/^file:\/\//.test(window.location.href)) return new XDomainRequest;
+if (enyo.platform.ie < 10 && window.XDomainRequest && !e.headers && !this.inOrigin(e.url) && !/^file:\/\//.test(window.location.href)) return new XDomainRequest;
 } catch (t) {}
 try {
 return new XMLHttpRequest;
@@ -1009,16 +1013,16 @@ go: function(e) {
 return this.startTimer(), this.request(e), this;
 },
 request: function(e) {
-var t = this.url.split("?"), n = t.shift() || "", r = t.length ? t.join("?").split("&") : [], i = enyo.isString(e) ? e : enyo.Ajax.objectToQuery(e);
-this.method == "GET" && (i && (r.push(i), i = null), this.cacheBust && !/^file:/i.test(n) && r.push(Math.random()));
+var t = this.url.split("?"), n = t.shift() || "", r = t.length ? t.join("?").split("&") : [], i = null;
+enyo.isString(e) ? i = e : e && r.push(enyo.Ajax.objectToQuery(e)), this.method == "GET" && (i && (r.push(i), i = null), this.cacheBust && !/^file:/i.test(n) && r.push(Math.random()));
 var s = r.length ? [ n, r.join("&") ].join("?") : n, o = {};
-this.method != "GET" && (o["Content-Type"] = this.contentType), enyo.mixin(o, this.headers);
+i = this.postBody || i, this.method != "GET" && (this.method === "POST" && window.FormData && i instanceof FormData || (o["Content-Type"] = this.contentType)), enyo.mixin(o, this.headers), enyo.keys(o).length === 0 && (o = undefined);
 try {
 this.xhr = enyo.xhr.request({
 url: s,
 method: this.method,
 callback: enyo.bind(this, "receive"),
-body: this.postBody || i,
+body: i,
 headers: o,
 sync: window.PalmSystem ? !1 : this.sync,
 username: this.username,
@@ -1031,7 +1035,14 @@ this.fail(u);
 }
 },
 receive: function(e, t) {
-!this.failed && !this.destroyed && (this.isFailure(t) ? this.fail(t.status) : this.respond(this.xhrToResponse(t)));
+if (!this.failed && !this.destroyed) {
+var n;
+typeof t.responseText == "string" && (n = t.responseText), this.xhrResponse = {
+status: t.status,
+headers: enyo.Ajax.parseResponseHeaders(t),
+body: n
+}, this.isFailure(t) ? this.fail(t.status) : this.respond(this.xhrToResponse(t));
+}
 },
 fail: function(e) {
 this.xhr && (enyo.xhr.cancel(this.xhr), this.xhr = null), this.inherited(arguments);
@@ -1072,6 +1083,18 @@ if (enyo.isArray(s)) for (var u = 0; u < s.length; u++) n.push(o + t(s[u])); els
 }
 }
 return n.join("&");
+},
+parseResponseHeaders: function(e) {
+var t = {}, n = [];
+e.getAllResponseHeaders && (n = e.getAllResponseHeaders().split(/\r?\n/));
+for (var r = 0; r < n.length; r++) {
+var i = n[r], s = i.indexOf(": ");
+if (s > 0) {
+var o = i.substring(0, s).toLowerCase(), u = i.substring(s + 2);
+t[o] = u;
+}
+}
+return t;
 }
 }
 });
@@ -1139,7 +1162,8 @@ kind: enyo._AjaxComponent,
 published: {
 jsonp: !1,
 callbackName: "callback",
-charset: null
+charset: null,
+timeout: 0
 },
 events: {
 onResponse: "",
@@ -1156,14 +1180,15 @@ var t = new enyo.JsonpRequest;
 for (var n in {
 url: 1,
 callbackName: 1,
-charset: 1
+charset: 1,
+timeout: 1
 }) t[n] = this[n];
 return this.sendAsync(t, e);
 },
 sendAjax: function(e) {
 var t = new enyo.Ajax;
 for (var n in enyo.AjaxProperties) t[n] = this[n];
-return this.sendAsync(t, e);
+return t.timeout = this.timeout, this.sendAsync(t, e);
 },
 sendAsync: function(e, t) {
 return e.go(t).response(this, "response").error(this, "error");
@@ -1408,7 +1433,7 @@ setupBodyFitting: function() {
 enyo.dom.applyBodyFit(), this.addClass("enyo-fit enyo-clip");
 },
 setupOverflowScrolling: function() {
-if (enyo.platform.android || enyo.platform.androidChrome) return;
+if (enyo.platform.android || enyo.platform.androidChrome || enyo.platform.blackberry) return;
 document.getElementsByTagName("body")[0].className += " webkitOverflowScrolling";
 },
 render: function() {
@@ -1421,10 +1446,10 @@ return this.hasNode() || this.renderNode(), this.hasNode() && (this.renderDom(),
 renderInto: function(e) {
 this.teardownRender();
 var t = enyo.dom.byId(e);
-return t == document.body ? this.setupBodyFitting() : this.fit && this.addClass("enyo-fit enyo-clip"), this.setupOverflowScrolling(), t.innerHTML = this.generateHtml(), this.rendered(), this;
+return t == document.body ? this.setupBodyFitting() : this.fit && this.addClass("enyo-fit enyo-clip"), this.addClass("enyo-no-touch-action"), this.setupOverflowScrolling(), t.innerHTML = this.generateHtml(), this.rendered(), this;
 },
 write: function() {
-return this.fit && this.setupBodyFitting(), this.setupOverflowScrolling(), document.write(this.generateHtml()), this.rendered(), this;
+return this.fit && this.setupBodyFitting(), this.addClass("enyo-no-touch-action"), this.setupOverflowScrolling(), document.write(this.generateHtml()), this.rendered(), this;
 },
 rendered: function() {
 this.reflow();
@@ -1630,8 +1655,8 @@ n.kindAttributes = enyo.mixin(enyo.clone(s), n.attributes), n.attributes = null;
 // platform.js
 
 enyo.platform = {
-touch: Boolean("ontouchstart" in window || window.navigator.msPointerEnabled),
-gesture: Boolean("ongesturestart" in window || window.navigator.msPointerEnabled)
+touch: Boolean("ontouchstart" in window || window.navigator.msMaxTouchPoints),
+gesture: Boolean("ongesturestart" in window || window.navigator.msMaxTouchPoints)
 }, function() {
 var e = navigator.userAgent, t = enyo.platform, n = [ {
 platform: "androidChrome",
@@ -1642,11 +1667,17 @@ regex: /Android (\d+)/
 }, {
 platform: "android",
 regex: /Silk\/1./,
-forceVersion: 2
+forceVersion: 2,
+extra: {
+silk: 1
+}
 }, {
 platform: "android",
 regex: /Silk\/2./,
-forceVersion: 4
+forceVersion: 4,
+extra: {
+silk: 2
+}
 }, {
 platform: "ie",
 regex: /MSIE (\d+)/
@@ -1668,11 +1699,14 @@ regex: /Android;.*Firefox\/(\d+)/
 }, {
 platform: "firefox",
 regex: /Firefox\/(\d+)/
+}, {
+platform: "blackberry",
+regex: /BB1\d;.*Version\/(\d+\.\d+)/
 } ];
 for (var r = 0, i, s, o; i = n[r]; r++) {
 s = i.regex.exec(e);
 if (s) {
-i.forceVersion ? o = i.forceVersion : o = Number(s[1]), t[i.platform] = o;
+i.forceVersion ? o = i.forceVersion : o = Number(s[1]), t[i.platform] = o, i.extra && enyo.mixin(t, i.extra);
 break;
 }
 }
@@ -1771,7 +1805,7 @@ break;
 n = n.parentNode;
 }
 } catch (r) {
-console.log(r, n);
+enyo.log(r, n);
 }
 return t;
 },
@@ -1867,7 +1901,7 @@ type: e
 };
 for (var r = 0, i; i = this.eventProps[r]; r++) n[i] = t[i];
 n.srcEvent = n.srcEvent || t, n.preventDefault = this.preventDefault, n.disablePrevention = this.disablePrevention;
-if (enyo.platform.ie) {
+if (enyo.platform.ie < 10) {
 enyo.platform.ie == 8 && n.target && (n.pageX = n.clientX + n.target.scrollLeft, n.pageY = n.clientY + n.target.scrollTop);
 var s = window.event && window.event.button;
 n.which = s & 1 ? 1 : s & 2 ? 2 : s & 4 ? 3 : 0;
@@ -2152,7 +2186,7 @@ return r;
 connect: function() {
 enyo.forEach([ "ontouchstart", "ontouchmove", "ontouchend", "ongesturestart", "ongesturechange", "ongestureend" ], function(e) {
 document[e] = enyo.dispatch;
-}), enyo.platform.androidChrome <= 18 ? this.findTarget = function(e) {
+}), enyo.platform.androidChrome <= 18 || enyo.platform.silk === 2 ? this.findTarget = function(e) {
 return document.elementFromPoint(e.screenX, e.screenY);
 } : document.elementFromPoint || (this.findTarget = function(e) {
 return this.findTargetTraverse(null, e.clientX, e.clientY);
@@ -2165,34 +2199,61 @@ n.connect();
 // msevents.js
 
 (function() {
+var e = enyo.gesture;
 if (window.navigator.msPointerEnabled) {
-var e = [ "MSPointerDown", "MSPointerUp", "MSPointerMove", "MSPointerOver", "MSPointerOut", "MSPointerCancel", "MSGestureTap", "MSGestureDoubleTap", "MSGestureHold", "MSGestureStart", "MSGestureChange", "MSGestureEnd" ];
-enyo.forEach(e, function(e) {
+var t = [ "MSPointerDown", "MSPointerUp", "MSPointerMove", "MSPointerOver", "MSPointerOut", "MSPointerCancel", "MSGestureTap", "MSGestureDoubleTap", "MSGestureHold", "MSGestureStart", "MSGestureChange", "MSGestureEnd" ];
+enyo.forEach(t, function(e) {
 enyo.dispatcher.listen(document, e);
 }), enyo.dispatcher.features.push(function(e) {
-n[e.type] && n[e.type](e);
-});
+s[e.type] && e.isPrimary && s[e.type](e);
+}), enyo.gesture.events = {};
 }
-var t = function(e, t) {
-var n = enyo.clone(t);
-return enyo.mixin(n, {
-pageX: t.translationX || 0,
-pageY: t.translationY || 0,
-rotation: t.rotation * (180 / Math.PI) || 0,
-type: e,
-srcEvent: t,
-preventDefault: enyo.gesture.preventDefault,
-disablePrevention: enyo.gesture.disablePrevention
+var n = function(t, n) {
+var r = enyo.clone(n);
+r = enyo.mixin(r, {
+type: t,
+srcEvent: n,
+preventDefault: e.preventDefault,
+disablePrevention: e.disablePrevention
 });
-}, n = {
-MSGestureStart: function(e) {
-enyo.dispatch(t("gesturestart", e));
+}, r = function(t, n) {
+var r = enyo.clone(n);
+return enyo.mixin(r, {
+pageX: n.translationX || 0,
+pageY: n.translationY || 0,
+rotation: n.rotation * (180 / Math.PI) || 0,
+type: t,
+srcEvent: n,
+preventDefault: e.preventDefault,
+disablePrevention: e.disablePrevention
+});
+}, i = function(e) {
+var t = enyo.clone(e);
+return t.srcEvent = e, t.target = document.elementFromPoint(t.clientX, t.clientY), t.which = 1, t;
+}, s = {
+MSPointerDown: function(t) {
+var n = i(t);
+e.down(n);
 },
-MSGestureChange: function(e) {
-enyo.dispatch(t("gesturechange", e));
+MSPointerUp: function(t) {
+var n = i(t);
+e.up(n);
 },
-MSGestureEnd: function(e) {
-enyo.dispatch(t("gestureend", e));
+MSPointerMove: function(t) {
+var n = i(t);
+e.move(n);
+},
+MSPointerCancel: function(t) {
+var n = i(t);
+e.up(n);
+},
+MSPointerOver: function(t) {
+var n = i(t);
+e.over(n);
+},
+MSPointerOut: function(t) {
+var n = i(t);
+e.out(n);
 }
 };
 })();
@@ -2954,9 +3015,13 @@ version: 5
 }, {
 os: "webos",
 version: 1e9
+}, {
+os: "blackberry",
+version: 1e9
 } ],
 hasTouchScrolling: function() {
 for (var e = 0, t, n; t = this.osInfo[e]; e++) if (enyo.platform[t.os]) return !0;
+if (enyo.platform.ie >= 10 && enyo.platform.touch) return !0;
 },
 hasNativeScrolling: function() {
 for (var e = 0, t, n; t = this.osInfo[e]; e++) if (enyo.platform[t.os] < t.version) return !1;
@@ -3444,6 +3509,9 @@ enyo.kind({
 name: "enyo.Button",
 kind: enyo.ToolDecorator,
 tag: "button",
+attributes: {
+type: "button"
+},
 published: {
 disabled: !1
 },
@@ -3630,7 +3698,7 @@ teardownChildren: function() {}
 
 enyo.kind({
 name: "enyo.Popup",
-classes: "enyo-popup",
+classes: "enyo-popup enyo-no-touch-action",
 published: {
 modal: !1,
 autoDismiss: !0,
