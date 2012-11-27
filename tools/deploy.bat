@@ -1,4 +1,4 @@
-REM don't watch the sausage being made
+@REM don't watch the sausage being made
 @ECHO OFF
 
 REM the folder this script is in (*/bootplate/tools)
@@ -15,4 +15,3 @@ SET NODE=node.exe
 
 REM use node to invoke deploy.js with imported parameters
 %NODE% "%DEPLOY%" %*
-
