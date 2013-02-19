@@ -13,7 +13,7 @@ DEPLOY="$ENYO/tools/deploy.js"
 if command -v node >/dev/null 2>&1; then
 	# use node to invoke deploy with imported parameters
 	echo "enyo/tools/minify.sh args: " $@
-	node $DEPLOY $@
+	node "$DEPLOY" $@
 else
 	echo "No node found in path"
 	exit 1
