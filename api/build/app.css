@@ -83,10 +83,44 @@
 	height: 1000000px;
 }
 
-.enyo-list-page {
+.enyo-list-page, .enyo-list-holdingarea {
 	position: absolute;
 	left: 0;
 	right: 0;
+}
+
+.enyo-list-holdingarea {
+	top: -10000px;
+}
+
+.enyo-pinned-list-placeholder {
+	border: 1px solid red;
+	position: absolute;
+	top: 0; left: 0;
+	z-index: 1000;
+	background: transparent;
+	overflow: hidden;
+}
+
+.enyo-pinned-list-placeholder button {
+	width: 100px; height: 100%;
+	position: absolute;
+	top: 0; right: 0;
+}
+
+.enyo-list-reorder-container {
+	position: absolute;
+	top: 0; left: 0;
+	z-index: 1000;
+	background: transparent;
+	overflow: hidden;
+}
+
+.enyo-animatedTopAndLeft {
+	-webkit-transition: top 0.1s linear, left 0.1s linear;
+	-moz-transition: top 0.1s linear, left 0.1s linear;
+	-o-transition: top 0.1s linear, left 0.1s linear;
+	transition: top 0.1s linear, left 0.1s linear;
 }
 
 /* /home/enyojs/git/api-tool/enyo/tools/../../lib/layout/list/source/PulldownList.css */
@@ -167,21 +201,17 @@
 	position: absolute;
 	left: 0;
 	top: 0;
-	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .enyo-arranger-fit > * {
-	/*
-	override any width/height set on panels
-	*/
+	/* override any width/height set on panels */
 	width: 100% !important;
 	height: 100% !important;
 	min-width: 0 !important;
-	max-width: auto !important;
 	min-height: 0 !important;
-	max-height: auto !important;
 }
 
 
@@ -221,14 +251,16 @@
 }
 
 .enyo-animate .enyo-node-box, .enyo-animate .enyo-node-client {
-	transition-property: height, top;
-	transition-duration: 0.2s, 0.2s;
+	-ms-transition-property: height, top;
+	-ms-transition-duration: 0.2s, 0.2s;
 	-moz-transition-property: height, top;
 	-moz-transition-duration: 0.2s, 0.2s;
 	-o-transition-property: height, top;
 	-o-transition-duration: 0.2s, 0.2s;
 	-webkit-transition-property: height, top;
 	-webkit-transition-duration: 0.2s, 0.2s;
+	transition-property: height, top;
+	transition-duration: 0.2s, 0.2s;
 }
 
 
