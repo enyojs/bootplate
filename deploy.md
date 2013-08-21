@@ -19,11 +19,17 @@ Instead, the CSS url paths are fixed up to reference the new path from the build
 
 ### How to compress
 
-To compress your application, you must run the Node.js script named `deploy.js` that comes with Enyo, as `enyo/tools/deploy.js`.
+To compress your application, you must run the script named `deploy.js` that comes with Enyo, as `enyo/tools/deploy.js`.  Bootplate provides 2 wrappers scripts to shorten the minification learning curve.  You can just run:
 
-    $ node enyo/tools/deploy.js -h
+    C:\path\to\bootplate\> cd tools
+    C:\path\to\bootplate\tools> deploy.bat
 
-This script will run the minification tool located in `enyo/tools/minifier/minify.js`, and make a build of enyo, then a build of your app.
+or (on Mac & Linux):
+
+    $ cd /path/to/bootplate/tools
+    $ bash ./deploy.sh
+
+This script will run the minification tool located in `enyo/tools/minifier/deploy.js`, and make a build of enyo, then a build of your app.
 
 Any libraries referenced in your `package.js` manifest will be built into your app's built code.
 
@@ -31,25 +37,26 @@ Any libraries referenced in your `package.js` manifest will be built into your a
 
 ### What comes out?
 
-After running the `deploy.js` script, a new folder `build` (you change this using the `-b` flag of the `deploy.js` script) will be located next to your `source` directory.
+After running the `deploy.js` script, a new folder `deploy` will be located next to your `source` directory.
 
-In it will be 4 files:
-- enyo.css
-- enyo.js
-- app.css
-- app.js
+```
+deploy
+└── build
+    ├── app.css
+    ├── app.js
+    ├── enyo.css
+    └── enyo.js
+```
 
 These files will be loaded in the given order by `index.html`.
 
-The output of the `deploy` scripts will minify your appliaction, and copy the necessary files into `deploy/<appname>/`.
-
 If the libraries have a compatible `deploy.json` (use to be `deploy.sh` or `deploy.bat` scripts), they will be used, and a minimal copy will be placed in the deployment's lib folder.
 
-If no `deploy.(json|sh|bat)` script is found for the library, all of each library is copied into the lib folder to provide maximum safety.
+If no `deploy.(json|sh|bat)` script is found for the library, all of each library is copied into the `deploy/lib` folder to provide maximum safety.
 
 If you are adding a library, please add a `deploy.json` file similar to the ones in `lib/onyx` or `lib/layout`.
 
-If no images or files are needed from the library, just include the following:
+If no images or files are needed from the library, just include the following (the same as `lib/layout`):
 
 ```json
 {
@@ -58,3 +65,41 @@ If no images or files are needed from the library, just include the following:
 	"libs": []
 }
 ```
+
+**NOTE:** In case you want full control of the minification process (target folders... etc), get familiar with the underlying Node.js script using:
+
+    $ node enyo/tools/deploy.js -h
+
+**NOTE:** For reference, the minification of an un-modified `bootplate` results in the following `deploy/` tree:
+
+```
+deploy
+├── assets
+│   └── favicon.ico
+├── build
+│   ├── app.css
+│   ├── app.js
+│   ├── enyo.css
+│   └── enyo.js
+├── icon.png
+├── index.html
+└── lib
+    └── onyx
+        ├── LICENSE-2.0.txt
+        └── images
+            ├── checkbox.png
+            ├── close-active.png
+            ├── close-inactive.png
+            ├── grabbutton.png
+            ├── gradient-invert.png
+            ├── gradient.png
+            ├── more.png
+            ├── progress-button-cancel.png
+            ├── search-input-cancel.png
+            ├── search-input-search.png
+            ├── slider-handle.png
+            ├── spinner-dark.gif
+            └── spinner-light.gif
+```
+
+
