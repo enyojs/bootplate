@@ -43,10 +43,18 @@ These files will be loaded in the given order by `index.html`.
 
 The output of the `deploy` scripts will minify your appliaction, and copy the necessary files into `deploy/<appname>/`.
 
-If the libraries have a compatible `deploy.sh` or `deploy.bat` script, they will be executed, and a minimal copy will be placed in the deployment's lib folder.
+If the libraries have a compatible `deploy.json` (use to be `deploy.sh` or `deploy.bat` scripts), they will be used, and a minimal copy will be placed in the deployment's lib folder.
 
-If no `deploy.(sh|bat)` script is found for the library, all of the library is copied into the lib folder to provide maximum safety.
+If no `deploy.(json|sh|bat)` script is found for the library, all of each library is copied into the lib folder to provide maximum safety.
 
-If you are adding a library, please add a `deploy.sh` file and `deploy.bat` file similar to the ones in `lib/onyx`.
+If you are adding a library, please add a `deploy.json` file similar to the ones in `lib/onyx` or `lib/layout`.
 
-If no images or files are needed from the library, just include blank (and executable) copies of the deploy scripts.
+If no images or files are needed from the library, just include the following:
+
+```json
+{
+	"source": ".",
+	"assets": [],
+	"libs": []
+}
+```
