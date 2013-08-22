@@ -37,22 +37,27 @@ Any libraries referenced in your `package.js` manifest will be built into your a
 
 ### What comes out?
 
-After running the `deploy.js` script, a new folder `deploy` will be located next to your `source` directory.
+After running the `deploy.bat|sh` script, two new folders (`build` and `deploy`) will be located next to your `source` directory.
+
+#### Minification test folder - build
 
 ```
-deploy
-└── build
-    ├── app.css
-    ├── app.js
-    ├── enyo.css
-    └── enyo.js
+build
+├── app.css
+├── app.js
+├── enyo.css
+└── enyo.js
 ```
 
-These files will be loaded in the given order by `index.html`.
+These generated files will be loaded in the given order by `index.html`.
 
-If the libraries have a compatible `deploy.json` (use to be `deploy.sh` or `deploy.bat` scripts), they will be used, and a minimal copy will be placed in the deployment's lib folder.
+#### Deployment folder - deploy
 
-If no `deploy.(json|sh|bat)` script is found for the library, all of each library is copied into the `deploy/lib` folder to provide maximum safety.
+The `deploy` folder contains a ready-to-be-shipped minified version of your application, including its declared assets & libraries in addition to the content of the `build folder`.
+
+If the libraries have a compatible `deploy.json` (use to be `deploy.sh` or `deploy.bat` scripts), they will be used, and a minimal copy will be placed in the deployment's `./lib` folder.
+
+If no `deploy.(json|sh|bat)` script is found for the libraries, all of each library is copied into the `deploy/lib` folder to provide maximum safety.
 
 If you are adding a library, please add a `deploy.json` file similar to the ones in `lib/onyx` or `lib/layout`.
 
@@ -101,5 +106,3 @@ deploy
             ├── spinner-dark.gif
             └── spinner-light.gif
 ```
-
-

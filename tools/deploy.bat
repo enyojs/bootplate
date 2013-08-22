@@ -17,8 +17,8 @@ REM node location
 SET NODE=node.exe
 
 REM use node to invoke deploy.js with imported parameters
-ECHO %NODE% "%DEPLOY%" -s "%SRC%" -o "%SRC%\deploy" %*
-%NODE% "%DEPLOY%" -s "%SRC%" -o "%SRC%\deploy" %*
+ECHO %NODE% "%DEPLOY%" -T -s "%SRC%" -o "%SRC%\deploy" %*
+%NODE% "%DEPLOY%" -T -s "%SRC%" -o "%SRC%\deploy" %*
 
 REM copy files and package if deploying to cordova webos
 :again

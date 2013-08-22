@@ -15,8 +15,8 @@ DEPLOY="$ENYO/tools/deploy.js"
 # check for node, but quietly
 if command -v node >/dev/null 2>&1; then
 	# use node to invoke deploy with imported parameters
-	echo "node $DEPLOY -s $SRC -o $SRC/deploy $@"
-	node "$DEPLOY" -s "$SRC" -o "$SRC/deploy" $@
+	echo "node $DEPLOY -T -s $SRC -o $SRC/deploy $@"
+	node "$DEPLOY" -T -s "$SRC" -o "$SRC/deploy" $@
 else
 	echo "No node found in path"
 	exit 1
