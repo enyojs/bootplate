@@ -19,7 +19,7 @@ Instead, the CSS url paths are fixed up to reference the new path from the build
 
 ### How to compress
 
-To compress your application, you must run the script named `deploy.js` that comes with Enyo, as `enyo/tools/deploy.js`.  Bootplate provides 2 wrappers scripts to shorten the minification learning curve.  You can just run:
+To compress your application, you must run the script named `deploy.js` that comes with Enyo, as `node enyo/tools/deploy.js`.  Bootplate provides 2 wrappers scripts to shorten the minification learning curve.  You can just run:
 
     C:\path\to\bootplate\> cd tools
     C:\path\to\bootplate\tools> deploy.bat
@@ -33,7 +33,16 @@ This script will run the minification tool located in `enyo/tools/minifier/deplo
 
 Any libraries referenced in your `package.js` manifest will be built into your app's built code.
 
-**NOTE:** `deploy.js` expects to find a `package.js` in the root-folder of your application. It only references your app's `package.js` to keep paths correct. Do not modify this.
+**NOTE:** `deploy.js` expects to find a `deploy.json` manifest in the root-folder of your application. This manifest then defines where are (1) the top-level `package.js`, (2) the location of the Enyo framework within the applicatio source & what are the various libraries & assets.  A typical default `package.json` contains:
+
+```json
+{
+	"enyo": "./enyo",
+	"packagejs": "./package.js",
+	"assets": ["./icon.png", "./index.html", "./assets"],
+	"libs": ["./lib/onyx", "./lib/layout"]
+}
+```
 
 ### What comes out?
 
@@ -65,7 +74,7 @@ If no images or files are needed from the library, just include the following (t
 
 ```json
 {
-	"source": ".",
+	"packagejs": "./package.js",
 	"assets": [],
 	"libs": []
 }
