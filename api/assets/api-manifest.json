@@ -1,5 +1,5 @@
 {
-	"version": "2.2.0",
+	"version": "2.3.0-pre.10",
 	"packages": [
 		{"name": "enyo", "path": "../enyo/source"},
 		{"name": "layout/fittable", "path": "../lib/layout/fittable"},
