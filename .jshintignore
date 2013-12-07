@@ -1,5 +1,6 @@
+deploy
+build
+assets
 enyo
 lib
-build
-deploy
 api
