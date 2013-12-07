@@ -1,6 +1,7 @@
 {
     "globals": {
         "enyo": false,
+        "$L": false,
         "onyx": false
     },
     "es3": true,
@@ -16,6 +17,5 @@
     "indent": 4,
     "newcap": true,
     "undef": true,
-    "expr": true,
     "unused": "vars"
 }
