@@ -2,7 +2,8 @@
     "globals": {
         "enyo": false,
         "$L": false,
-        "onyx": false
+        "onyx": false,
+        "myapp": false
     },
     "es3": true,
     "evil": false,
