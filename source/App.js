@@ -1,17 +1,15 @@
+/**
+	Define and instantiate your enyo.Application kind in this file.  Note,
+	application rendering should be deferred until DOM is ready by wrapping
+	it in a call to enyo.ready().
+*/
+
 enyo.kind({
-	name: "App",
-	kind: "FittableRows",
-	fit: true,
-	components:[
-		{kind: "onyx.Toolbar", content: "Hello World"},
-		{kind: "enyo.Scroller", fit: true, components: [
-			{name: "main", classes: "nice-padding", allowHtml: true}
-		]},
-		{kind: "onyx.Toolbar", components: [
-			{kind: "onyx.Button", content: "Tap me", ontap: "helloWorldTap"}
-		]}
-	],
-	helloWorldTap: function(inSender, inEvent) {
-		this.$.main.addContent("The button was tapped.<br/>");
-	}
+	name: "myapp.Application",
+	kind: "enyo.Application",
+	view: "myapp.MainView"
+});
+
+enyo.ready(function () {
+	new myapp.Application({name: "app"});
 });
