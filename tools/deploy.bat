@@ -35,6 +35,12 @@ if not "%1" == "" (
 	palm-package.bat %DEST% --outdir=%SRC%\bin
     )
 
+    if "%1" == "--firefoxos" (
+  REM copy manifest.webapp files
+  for %%A in ("%~dp0./..") do SET DEST=%TOOLS%..\deploy\%%~nA
+  copy %SRC%\manifest.webapp %DEST%
+    )
+
     shift
     goto again
 )
