@@ -28,13 +28,21 @@ while [ "$1" != "" ]; do
 		-w | --cordova-webos )
 			# copy appinfo.json and cordova*.js files
 			DEST="$TOOLS/../deploy/"${PWD##*/}
-			
-			cp "$SRC"/appinfo.json "$DEST" -v
-			cp "$SRC"/cordova*.js "$DEST" -v
-			
+
+			cp -v "$SRC"/appinfo.json "$DEST"
+			cp -v "$SRC"/cordova*.js "$DEST"
+
 			# package it up
 			mkdir -p "$DEST/bin"
 			palm-package "$DEST/bin"
+			;;
+	esac
+	case $1 in
+		-fxos | --firefoxos )
+			# copy manifest.webapp files
+			DEST="$TOOLS/../deploy/"${PWD##*/}
+
+			cp -v "$SRC"/manifest.webapp "$DEST"
 			;;
 	esac
 	shift
