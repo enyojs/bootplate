@@ -19,6 +19,7 @@ SET NODE=node.exe
 REM use node to invoke deploy.js with imported parameters
 ECHO %NODE% "%DEPLOY%" -T -s "%SRC%" -o "%SRC%\deploy" %*
 %NODE% "%DEPLOY%" -T -s "%SRC%" -o "%SRC%\deploy" %*
+IF ERRORLEVEL 1 GOTO err
 
 REM copy files and package if deploying to cordova webos
 :again
@@ -28,7 +29,9 @@ if not "%1" == "" (
 	REM copy appinfo.json and cordova*.js files
 	for %%A in ("%~dp0./..") do SET DEST=%TOOLS%..\deploy\%%~nA
 	copy %SRC%\appinfo.json %DEST%
+	IF ERRORLEVEL 1 GOTO err
 	copy %SRC%\cordova*.js %DEST%
+	IF ERRORLEVEL 1 GOTO err
 
 	REM package it up
 	if not exist %SRC%\bin mkdir %SRC%\bin
@@ -38,3 +41,11 @@ if not "%1" == "" (
     shift
     goto again
 )
+
+goto done
+
+:err
+ECHO Deploy encountered errors.
+EXIT /B 1
+
+:done
