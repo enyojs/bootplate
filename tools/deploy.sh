@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Alert the user of a failed build
+errored () {
+	errcode=$?
+	echo "Deploy encountered errors."
+	exit $errcode
+}
+
+trap errored ERR
+
 # the folder this script is in (*/bootplate/tools)
 TOOLS=$(cd `dirname $0` && pwd)
 
