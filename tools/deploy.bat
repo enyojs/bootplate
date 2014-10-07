@@ -5,7 +5,7 @@ REM the folder this script is in (*/bootplate/tools)
 SET TOOLS=%~DP0
 
 REM application source location
-SET SRC=%TOOLS%\..
+SET SRC=%TOOLS%..
 
 REM enyo location
 SET ENYO=%SRC%\enyo
