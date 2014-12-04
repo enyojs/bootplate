@@ -8,7 +8,7 @@ REM application source location
 SET SRC=%TOOLS%..
 
 REM enyo location
-SET ENYO=%SRC%\enyo
+SET ENYO=%SRC%\lib\enyo
 
 REM deploy script location
 SET DEPLOY=%ENYO%\tools\deploy.js
