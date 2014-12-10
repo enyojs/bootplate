@@ -34,10 +34,17 @@ module.exports = function(grunt) {
                 // run in parallel with other tasks
                 runInBackground:false
             }
+        },
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc',
+            },
+            files:["."]
         }
     });
 
     // external tasks
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-http-server');
 
