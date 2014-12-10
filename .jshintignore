@@ -4,3 +4,5 @@ assets
 enyo
 lib
 api
+Gruntfile.js
+tasks
