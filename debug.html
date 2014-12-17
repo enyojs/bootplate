@@ -9,6 +9,15 @@
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 		<!-- Less.js (for client-side rendering of less stylesheets; comment to use pre-compiled CSS) -->
+		<script src="enyo/tools/minifier/node_modules/less-plugin-resolution-independence/lib/resolution-independence.js"></script>
+		<script>
+			;(function(){
+				var less = window.less || {};
+				var ri = new enyoLessRiPlugin();
+				less.plugins = [ri];
+				window.less = less;
+			}())
+		</script>
 		<script src="enyo/tools/less.js"></script>
 		<!-- enyo (debug) -->
 		<script src="enyo/enyo.js" charset="utf-8"></script>
