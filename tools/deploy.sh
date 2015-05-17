@@ -16,7 +16,7 @@ TOOLS=$(cd `dirname $0` && pwd)
 SRC="$TOOLS/.."
 
 # enyo location
-ENYO="$SRC/enyo"
+ENYO="$SRC/lib/enyo"
 
 # deploy script location
 DEPLOY="$ENYO/tools/deploy.js"
