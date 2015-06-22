@@ -1,3 +1,4 @@
 node_modules
 lib
 dist
+.e_cache
