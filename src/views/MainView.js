@@ -4,17 +4,24 @@
 	into multiple files under this folder.
 */
 
-enyo.kind({
-	name: "myapp.MainView",
-	kind: "FittableRows",
+var
+	kind = require('enyo/kind'),
+	FittableRows = require('layout/FittableRows'),
+	Toolbar = require('onyx/Toolbar'),
+	Scroller = require('enyo/Scroller'),
+	Button = require('onyx/Button');
+
+
+module.exports = kind({
+	kind: FittableRows,
 	fit: true,
 	components:[
-		{kind: "onyx.Toolbar", content: "Hello World"},
-		{kind: "enyo.Scroller", fit: true, components: [
+		{kind: Toolbar, content: "Hello World"},
+		{kind: Scroller, fit: true, components: [
 			{name: "main", classes: "nice-padding", allowHtml: true}
 		]},
-		{kind: "onyx.Toolbar", components: [
-			{kind: "onyx.Button", content: "Tap me", ontap: "helloWorldTap"}
+		{kind: Toolbar, components: [
+			{kind: Button, content: "Tap me", ontap: "helloWorldTap"}
 		]}
 	],
 	helloWorldTap: function(inSender, inEvent) {

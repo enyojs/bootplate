@@ -1,10 +1,6 @@
 deploy
 build
+dist
 assets
-enyo
 lib
-api
 node_modules
-Gruntfile.js
-tasks
-tools
