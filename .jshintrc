@@ -1,9 +1,9 @@
 {
     "globals": {
-        "enyo": false,
-        "$L": false,
-        "onyx": false,
-        "myapp": false
+        "module": true,
+        "requires": true,
+        "request": true,
+        "$L": false
     },
     "es3": true,
     "evil": false,
