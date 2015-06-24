@@ -1,7 +1,7 @@
 {
     "globals": {
         "module": true,
-        "requires": true,
+        "require": true,
         "request": true,
         "$L": false
     },
