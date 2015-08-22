@@ -2,9 +2,9 @@
   "name": "bootplate",
   "private": true,
   "dependencies": {
-    "enyo": "git@github.com:enyojs/enyo.git#2.6.0-dev",
-    "enyo-ilib": "git@github.com:enyojs/enyo-ilib.git#2.6.0-dev",
-    "layout": "git@github.com:enyojs/layout.git#2.6.0-dev",
-    "onyx": "git@github.com:enyojs/onyx.git#2.6.0-dev"
+    "enyo": "git@github.com:enyojs/enyo.git#2.6.0-pre.15.1",
+    "enyo-ilib": "git@github.com:enyojs/enyo-ilib.git#2.6.0-pre.15.1",
+    "layout": "git@github.com:enyojs/layout.git#2.6.0-pre.15.1",
+    "onyx": "git@github.com:enyojs/onyx.git#2.6.0-pre.15.1"
   }
 }
