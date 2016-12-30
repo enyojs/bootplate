@@ -24,10 +24,10 @@
         }
     ],
     "devDependencies": {
-        "grunt": "~0.4.5",
-        "grunt-http-server": "~1.1.0",
-        "grunt-contrib-clean": "~0.6.0",
-        "grunt-contrib-jshint": "~0.10.0"
+        "grunt": "~1.0.1",
+        "grunt-http-server": "~2.0.0",
+        "grunt-contrib-clean": "~1.0.0",
+        "grunt-contrib-jshint": "~1.1.0"
     },
     "dependencies": {}
 }
