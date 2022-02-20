@@ -43,7 +43,7 @@ while [ "$1" != "" ]; do
 			
 			# package it up
 			mkdir -p "$DEST/bin"
-			palm-package -o "$DEST/bin"
+			palm-package $DEST -o "$DEST/bin"
 			;;
 	esac
 	shift
