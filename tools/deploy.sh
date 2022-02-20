@@ -36,14 +36,14 @@ while [ "$1" != "" ]; do
 	case $1 in
 		-w | --cordova-webos )
 			# copy appinfo.json and cordova*.js files
-			DEST="$TOOLS/../deploy/"${PWD##*/}
+			DEST="$TOOLS/../deploy/"
 			
 			cp "$SRC"/appinfo.json "$DEST" -v
 			cp "$SRC"/cordova*.js "$DEST" -v
 			
 			# package it up
 			mkdir -p "$DEST/bin"
-			palm-package "$DEST/bin"
+			palm-package -o "$DEST/bin"
 			;;
 	esac
 	shift

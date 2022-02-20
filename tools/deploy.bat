@@ -27,7 +27,7 @@ if not "%1" == "" (
 
     if "%1" == "--cordova-webos" (
 	REM copy appinfo.json and cordova*.js files
-	for %%A in ("%~dp0./..") do SET DEST=%TOOLS%..\deploy\%%~nA
+	for %%A in ("%~dp0./..") do SET DEST=%TOOLS%..\deploy\
 	copy %SRC%\appinfo.json %DEST%
 	IF ERRORLEVEL 1 GOTO err
 	copy %SRC%\cordova*.js %DEST%
