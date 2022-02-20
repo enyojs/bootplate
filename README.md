@@ -13,3 +13,5 @@ give you just the bootplate repo without any of the supporting libraries.
 As an alternative, you can use a Git client to clone this repo and then initialize
 submodules. This is good if you want to work with the latest version of the code from
 GitHub that we may not have packaged into an official release.
+
+The `enyo` subfolder should be cloned from the enyo repo.
