@@ -40,13 +40,6 @@ else
     echo "Building for web..."
     $mydir/enyo-app/tools/deploy.sh
 fi
-echo "Cleaning up..."
-if [ $www -eq 1 ]; then
-    mkdir $mydir/bin/www -p
-    cp $mydir/enyo-app/deploy/* $mydir/bin/www/ -R
-fi
-rm -rf $mydir/enyo-app/deploy/*
-rm -rf $mydir/enyo-app/build/*
 
 if [ $android -eq 1 ]; then
     echo "Building for Android..."
@@ -54,13 +47,20 @@ if [ $android -eq 1 ]; then
     cd $mydir/cordova-app
     cordova platform add android
     echo "Copying to Cordova..."
-    cp $mydir/build-extras.gradle $mydir/cordova-app/platforms/android
     cp $mydir/enyo-app/deploy/* $mydir/cordova-app/www -R
     cd $mydir/cordova-app
     echo "Building Cordova..."
     cordova build android --buildConfig=build.json
     cp $mydir/cordova-app/platforms/android/app/build/outputs/apk/debug/* $mydir/bin/
 fi
+
+echo "Cleaning up..."
+if [ $www -eq 1 ]; then
+    mkdir $mydir/bin/www -p
+    cp $mydir/enyo-app/deploy/* $mydir/bin/www/ -R
+fi
+rm -rf $mydir/enyo-app/deploy/*
+rm -rf $mydir/enyo-app/build/*
 
 echo
 echo "Build output at: $mydir/bin/"
