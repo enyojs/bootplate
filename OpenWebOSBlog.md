@@ -1,5 +1,7 @@
 # JavaScript Apps for Open webOS With Enyo and Cordova
 
+*Archived by the Wayback Machine from http://blog.openwebosproject.org/post/39278618299/javascript-apps-for-open-webos-with-enyo-and-cordova on Feb 20, 2014*
+
 In the past, we encouraged developers to use Enyo to develop apps for webOS. We still love Enyo and encourage developers to use it. However, as we moved to Open webOS we decided to embrace all the JavaScript frameworks developers use. Enyo, a truly cross-platform app development tool, is no longer bundled with Open webOS. Enyo 1.0 provided a number of webOS-specific functions. Enyo 2.0 doesn’t have that so we needed a way to provide access to device features. The solution we decided upon was to use Apache Cordova for deploying apps on Open webOS.
 
 This will make it easier for developers to not only deploy apps for Open webOS but will also help developers port apps developed for Open webOS to other platforms. With a single code base you can deploy native-quality apps across many mobile devices. We still, of course, love Enyo so we’ll demonstrate how to use it to create an app with Cordova.

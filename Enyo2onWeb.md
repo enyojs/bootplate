@@ -1,14 +1,14 @@
-# Enyo2 on Android with Cordova
+# Enyo2 on the Web
 
-Be aware Cordova uses WebView on Android, and is unable to circumvent its CORS restrictions.
-If you want to call a web service from your app, you'll need to add the appropriate CORS
-headers (if you control the service) or come up with a work-around (if you don't control the service).
+Enyo2 apps natively run in modern web browsers, with the only caveat being CORS restrictions.
+If you want to cross-target other platforms, particularly webOS, ensure you don't do use
+modern web features that won't render on older browsers.
 
 ## Simple and Automated
 
 - Create your Enyo app by adding to and modifying the contents of the `enyo-app` folder
-- From the parent folder, use the command line to run `./build.sh android`
-- Install the output apk from `bin/` using `adb`
+- From the parent folder, use the command line to run `./build.sh www`
+- Copy (or symlink) the output `bin/www` folder to your web server
 
 ## DIY (Manual)
 

@@ -6,7 +6,7 @@
 
 - Create your Enyo app by adding to and modifying the contents of the `enyo-app` folder
 - From the parent folder, use the command line to run `./build.sh luneos`
-- Install the output apk using `lune-install`
+- Install the output ipk from `bin/` using `lune-install`
 
 ## DIY (Manual)
 

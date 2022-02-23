@@ -4,7 +4,7 @@
 
 - Create your Enyo app by adding to and modifying the contents of the `enyo-app` folder
 - From the parent folder, use the command line to run `./build.sh webos`
-- Install the output apk using `palm-install`
+- Install the output ipk from `bin/` using `palm-install`
 
 ## DIY (Manual)
 
@@ -13,4 +13,4 @@
 - Copy `appinfo.json` from the PhoneGap `'lib/webos/framework'` directory and a cordova JavaScript file from the PhoneGap `'lib/webos/lib'` directory
 - Modify `appinfo.json` for your project and add an icon
 - Run `tools\deploy.bat --cordova-webos` or `tools/deploy.sh --cordova-webos` to build your app.
-- Use `palm-install` to install to your webOS device
+- Use `palm-install` to install the resulting ipk on your webOS device
