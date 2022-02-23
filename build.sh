@@ -5,5 +5,6 @@ echo "Building for Web..."
 $mydir/enyo-app/tools/deploy.sh
 
 if [ "$1" = "android" ]; then
-    cp $mydir/enyo-app/sampler $mydir/cordova-app/www -R
+    echo "Copying to Cordova..."
+    cp $mydir/enyo-app/deploy $mydir/cordova-app/www -R
 fi
