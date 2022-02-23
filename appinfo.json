@@ -1,7 +1,7 @@
 {
 	"id": "com.enyo2.app",
 	"version": "1.0.0",
-	"vendor": "Enyo2 Developer",
+	"vendor": "webOS Archive",
 	"type": "web",
 	"main": "index.html",
 	"title": "Enyo2 App",

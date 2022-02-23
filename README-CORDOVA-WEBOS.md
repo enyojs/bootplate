@@ -1,5 +1,4 @@
-Cordova webOS Instructions:
----------------------------
+# Cordova webOS Instructions:
 
 - Set up your project the same way you would set up any other bootplate project.
 - Modify your index.html and JavaScript files as outlined in this blog post: [JavaScript Apps for Open webOS With Enyo and Cordova](README-OPENWEBOS-BLOG.md)
