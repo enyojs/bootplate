@@ -49,11 +49,11 @@ if [ $android -eq 1 ]; then
     cd $mydir/cordova-app
     cordova platform add android
     echo "Copying to Cordova..."
-    cp $mydir/enyo-app/deploy/*.apk $mydir/cordova-app/www -R
+    cp $mydir/enyo-app/deploy/* $mydir/cordova-app/www -R
     cd $mydir/cordova-app
     echo "Building Cordova..."
     cordova build android
-    cp $mydir/cordova-app/platforms/android/app/build/outputs/apk/debug/* $mydir/bin/
+    cp $mydir/cordova-app/platforms/android/app/build/outputs/apk/debug/*.apk $mydir/bin/
 fi
 
 echo "Cleaning up..."
@@ -63,7 +63,6 @@ if [ $www -eq 1 ]; then
 fi
 rm -rf $mydir/enyo-app/deploy/*
 rm -rf $mydir/enyo-app/build/*
-rm -rf $mydir/cordova-app/www/*
 
 echo
 echo "Build output at: $mydir/bin/"

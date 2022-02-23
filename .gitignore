@@ -2,3 +2,5 @@
 /build
 /deploy
 /node_modules
+/cordova-app/www
+/bin
