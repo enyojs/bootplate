@@ -1,4 +1,12 @@
-# webOS modern Cordova Android Instructions:
+# Enyo2 on Android with Cordova
+
+## Simple and Automated
+
+- Create your Enyo app by adding to and modifying the contents of the `enyo-app` folder
+- From the parent folder, use the command line to run `./build.sh android`
+- Install the output apk using `adb`
+
+## DIY (Manual)
 
 - Create your Cordova project the standard way:
     - eg: `cordova create hello com.example.hello HelloWorld`
@@ -13,6 +21,9 @@
     - `<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">`
 - Build your combined webOS + Cordova app for Android:
     - `cordova build android`
+
+## Debugging
+
 - Use `adb` to install the result apk to your Android device.
 - You can use Chrome on your PC to debug Enyo apps:
     - With the Android device connected over USB (and USB debugging enabled)

@@ -26,7 +26,7 @@ done
 
 if [[ $www -eq 0 ]] && [[ $webOS -eq 0 ]] && [[ $android -eq 0 ]] ; then
     echo "No build target specified"
-    echo "Allowed: webos www android"
+    echo "Allowed: webos luneos www android"
     echo "(or any combination)"
     exit
 fi
