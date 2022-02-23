@@ -2,7 +2,7 @@
 
 mydir=$(cd `dirname $0` && pwd)
 rm -rf $mydir/bin/*
-mkdir $mydir/bin/www -p
+mkdir $mydir/bin/ -p
 
 www=0
 webOS=0
@@ -27,7 +27,7 @@ done
 
 if [[ $www -eq 0 ]] && [[ $webOS -eq 0 ]] && [[ $android -eq 0 ]] ; then
     echo "No build target specified"
-    echo "Allowed: webOS web android"
+    echo "Allowed: webos www android"
     echo "(or any combination)"
     exit
 fi
@@ -40,9 +40,13 @@ else
     echo "Building for web..."
     $mydir/enyo-app/tools/deploy.sh
 fi
+echo "Cleaning up..."
 if [ $www -eq 1 ]; then
+    mkdir $mydir/bin/www -p
     cp $mydir/enyo-app/deploy/* $mydir/bin/www/ -R
 fi
+rm -rf $mydir/enyo-app/deploy/*
+rm -rf $mydir/enyo-app/build/*
 
 if [ $android -eq 1 ]; then
     echo "Building for Android..."
