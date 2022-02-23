@@ -46,15 +46,15 @@ fi
 if [ $android -eq 1 ]; then
     echo "Building for Android..."
     rm -rf $mydir/bin/*.apk
-    dirname=$mydir/cordova-app
-    cd $mydir/cordova-app
+    dirname=$mydir/cordova-wrapper
+    cd $mydir/cordova-wrapper
     cordova platform add android
     echo "Copying to Cordova..."
-    cp $mydir/enyo-app/deploy/* $mydir/cordova-app/www -R
-    cd $mydir/cordova-app
+    cp $mydir/enyo-app/deploy/* $mydir/cordova-wrapper/www -R
+    cd $mydir/cordova-wrapper
     echo "Building Cordova..."
     cordova build android
-    cp $mydir/cordova-app/platforms/android/app/build/outputs/apk/debug/*.apk $mydir/bin/
+    cp $mydir/cordova-wrapper/platforms/android/app/build/outputs/apk/debug/*.apk $mydir/bin/
 fi
 
 echo "Cleaning up..."
