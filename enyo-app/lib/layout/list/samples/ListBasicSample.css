@@ -1,0 +1,28 @@
+.list-sample {
+	background-color: gray;
+}
+.list-sample-list {
+	width: 50%;
+	min-width: 300px;
+	max-width: 600px;
+	margin: auto;
+	background-color: #eee;
+}
+.list-sample-item {
+	border: 1px solid silver;
+	padding: 18px;
+	font-size: 18px;
+	font-weight: bold;
+}
+.list-sample-index {
+	float: right;
+	font-size: 16px;
+	font-weight: normal;
+}
+.list-sample-selected {
+	background-color: #c4e3fe;
+}
+/* needed to make onyx-highlight more specific for highlighting to work */
+.onyx-highlight.list-sample-selected {
+	background-color: #dedfdf;
+}

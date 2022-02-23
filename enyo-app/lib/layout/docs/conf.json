@@ -1,0 +1,22 @@
+{
+	"tags": {
+		"allowUnknownTags": false
+	},
+	"source": {
+		"include": ["contextual/source", "docs/external.jsdoc", "easing/source", "fittable/source", "imageview/source", "list/source", "panels/source", "slideable/source", "tree/source"],
+		"excludePattern": "package\\.js",
+		"includePattern": ".+\\.js(doc)?$"
+	},
+	"opts": {
+		"encoding": "utf8",
+		"destination": "./docs/out",
+		"recurse": true,
+		"private": false,
+		"lenient": false
+	},
+	"plugins": ["plugins/markdown"],
+	"markdown": {
+		"parser": "gfm",
+		"hardwrap": false
+	}
+}

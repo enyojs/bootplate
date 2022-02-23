@@ -1,0 +1,58 @@
+/* ContextualLayout.css - popup positioning and border radius adjustments */
+
+/*for popups above activator*/
+.vertical.above {
+  top: auto;
+  margin-top:-10px;
+  bottom: 100%;
+  margin-bottom: 10px;
+}
+/*for popups below activator*/
+.vertical.below {
+  margin-top:10px;
+}
+/*for popups on the left of the activator*/
+.right.horizontal {
+  margin-left: -11px;
+}
+/*for popups on the right of the activator*/
+.left.horizontal {
+  margin-left: 10px;
+}
+/*corners*/
+/*vertical top corners*/
+/*for popups on the left of the activator*/
+.vertical.right.corner {
+  margin-left: 0px;
+}
+/*for popups on the right of the activator*/
+.vertical.left.corner {
+  margin-left: 0px;
+}
+.vertical.below.left.corner {
+  border-top-right-radius: 0px;
+}
+.vertical.below.right.corner {
+  border-top-left-radius: 0px;
+}
+/*vertical bottom corners*/
+.left.above.corner {
+  border-bottom-right-radius: 0px;
+}
+.right.above.corner {
+  border-bottom-left-radius: 0px;
+}
+/*horizontal bottom corners*/
+.left.low.corner {
+  border-bottom-left-radius: 0px;
+}
+.right.low.corner {
+  border-bottom-right-radius: 0px;
+}
+/*horizontal top corners*/
+.left.high.corner {
+  border-top-left-radius: 0px;
+}
+.right.high.corner {
+  border-top-right-radius: 0px;
+}

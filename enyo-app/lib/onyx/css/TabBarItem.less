@@ -1,0 +1,84 @@
+/* TabBarItem.css */
+
+.onyx-tab-item {
+	display: inline;
+	position: relative;
+	border: 1px solid @tab-border;
+	margin: 0px 2px 0px 2px;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	background-color: @tab-inactive ;
+	z-index: 1;
+	padding-top: 0.2em;
+	padding-bottom: 0.7em ;
+	vertical-align: baseline;
+
+	&.active {
+		border-bottom: 1px solid @tab-strong;
+		background-color: @tab-strong;
+		z-index: 3;
+		padding-top: 0.3em;
+	}
+
+	&:hover {
+		background-color: @tab-strong;
+	}
+
+	button {
+		overflow: hidden;
+		margin: 3px;
+		border: 1px solid transparent;
+		background-color: transparent ;
+	}
+
+}
+
+.onyx-tab-item-gradient( @see-through, @opaque ) {
+
+	// tested
+	background: linear-gradient(to right,@opaque 0%, @see-through 100%); /* W3C */
+	background: -moz-linear-gradient(right,  @opaque 0%, @see-through 100%); /* FF3.6+ */
+	background: -webkit-linear-gradient(left, @see-through,@opaque); /* Chrome10+,Safari5.1+ */
+
+
+	// untested
+	background: -webkit-gradient(linear, right top, left top, color-stop(0%,@opaque), color-stop(100%,@see-through)); /* Chrome,Safari4+ */
+	background: -o-linear-gradient(left,  @opaque 0%,@see-through 100%); /* Opera 11.10+ */
+
+	// tested
+	background: -ms-linear-gradient(left, @see-through 0%, @opaque 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=argb(@see-through), endColorstr=argb(@opaque),GradientType=1 ); /* IE6-9 */
+}
+
+.onyx-tab-item-dissolve {
+	display: inline-block;
+	height: 90%;
+	width: 2em;
+	top: 2px;
+	right: 19px; // to place it left of close button
+	position: absolute;
+	
+	.onyx-tab-item-gradient( fadeout(@tab-inactive,100%), @tab-inactive);
+
+	&.active {
+		.onyx-tab-item-gradient( fadeout(@tab-strong,100%), @tab-strong);
+	}
+}
+
+// artificial class set on dissolve item when mouse hovers over tabitem
+.onyx-tab-item-hovered {
+	.onyx-tab-item-gradient( fadeout(@tab-strong,100%), @tab-strong);
+}
+
+.onyx-tab-item-close {
+	display: inline-block;
+	margin-right: 3px;
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	background-repeat: no-repeat;
+	background-image: url('@{onyx-image-path}/close-inactive.png');
+	&:hover {
+		background-image: url('@{onyx-image-path}/close-active.png');
+	}
+}

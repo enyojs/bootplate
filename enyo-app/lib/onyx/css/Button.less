@@ -1,0 +1,64 @@
+/* Button.css */
+.onyx-button {
+	outline: 0;
+	/**/
+	color: @onyx-button-text-color;
+	font-size: @onyx-button-font-size;
+	text-align: center;
+	white-space: nowrap;
+	/**/
+	margin: 0;
+	padding: @onyx-button-padding-tb @onyx-button-padding-lr;
+	overflow: hidden;
+	/**/
+	border-radius: @onyx-button-border-radius;
+	/* for IE8 */
+	border: 1px solid (@onyx-button-background * 0.498);
+	border: 1px solid fade((@onyx-button-background * 0.067), 20%);
+	/*
+		The border and the gradient interact in a strange way that
+		causes the bottom-border (top if the gradient is aligned top)
+		to be lighter than other borders.
+		We can fix it by using the darker bottom border below, but
+		then there are a few rogue pixels that end up very dark.
+	*/
+	/* border-bottom: 1px solid rgba(15, 15, 15, 0.5); */
+	box-shadow: inset 0px 1px 0px rgba(255,255,255,0.2);
+	/**/
+	background: @onyx-button-background @onyx-button-gradient repeat-x bottom;
+	background-size: contain;
+	/**/
+	text-overflow: ellipsis;
+	/* the following cause arcane problems on IE */
+	/*
+	min-width: 14px;
+	min-height: 20px;
+	*/
+}
+
+/*
+	IE8 can't handle these selectors in tandem:
+	.onyx-button.active, .onyx-button:active:not([disabled]) {
+
+	the effect is as if .onyx-button.active doesn't exist
+*/
+.onyx-button.active, .onyx-button.pressed {
+	background-image: @onyx-button-active-gradient;
+	background-position: top;
+	border-top: 1px solid rgba(15, 15, 15, 0.6);
+	box-shadow: inset 0px 1px 0px rgba(0,0,0,0.1);
+}
+
+.onyx-button[disabled] {
+	opacity: @onyx-disabled-opacity;
+	filter: alpha(opacity=@onyx-disabled-opacity-ie);
+}
+
+.onyx-button > img {
+	padding: 0px 3px;
+}
+
+/* Remove the focused inner-border style in Firefox (Windows) */
+.onyx-button::-moz-focus-inner {
+  border: 0;
+}

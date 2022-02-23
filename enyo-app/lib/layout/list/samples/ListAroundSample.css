@@ -1,0 +1,59 @@
+.list-sample-around {
+	background: url(assets/bg.png);
+}
+/* item */
+.list-sample-around-item {
+	height: 100px;
+	border-top: 1px solid silver;
+	padding: 12px 16px;
+	background-color: #333333;
+}
+.list-sample-around-item-selected {
+	background: #226B9A url(assets/item-hilite.png) repeat-x bottom;
+}
+.list-sample-around-item > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+.list-sample-around-avatar {
+    width: 32px;
+    height: 32px;
+	padding-right: 10px;
+}
+.list-sample-around-name {
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+}
+.list-sample-around-description {
+	font-size: 12px;
+	color: silver;
+}
+.list-sample-around-remove-button {
+	float: right;
+	display: none;
+}
+/* divider */
+.list-sample-around-divider {
+	background-color: #666;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 8px 14px;
+}
+/* popup */
+.list-sample-around-popup {
+	width: 280px;
+}
+.list-sample-around-popup > * {
+	display: block;
+	margin: 10px 10px;
+}
+.list-sample-around-populate-button {
+	float: right;
+	margin-top: 25px;
+}
+.list-sample-around-label {
+	display: inline-block;
+	width: 120px;
+	padding-right: 10px;
+}

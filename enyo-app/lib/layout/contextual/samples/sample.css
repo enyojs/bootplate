@@ -1,0 +1,168 @@
+/*popup styling*/
+.sample-contextual-popup {
+  min-height: 50px;
+  min-width: 50px;
+  font-size: 16px;
+  box-shadow: 0 6px 10px blue;
+  border: 1px solid blue;
+  border-radius: 8px;
+  padding: 6px;
+  color: orange;
+  background: blue;
+}
+
+/****below here is all nub styling****/
+/*setup the nub*/
+.sample-contextual-popup::after{
+  content: '';
+  position: absolute;
+  top: -10px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+
+/*nub positioning*/
+/*horizontally centered nub*/
+.sample-contextual-popup.vertical::after {
+  position:absolute;
+  left:45%;
+  border-bottom: 10px solid blue;
+  border-top: none;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+/*nub near horizontal left*/
+.sample-contextual-popup.vertical.right::after {
+  left:0%;
+  margin-left:20px;
+}
+/*nub near horizontal right*/
+.sample-contextual-popup.vertical.left::after {
+  left:100%;
+  margin-left: -55px;
+}
+/*downward facing nub*/
+.sample-contextual-popup.vertical.above::after {
+  top:100%;
+  border-top: 10px solid blue;
+  border-bottom: none;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+.sample-contextual-popup.vertical.below.right::after {
+  top:0%;
+  margin-top:-10px;
+  border-bottom: 10px solid blue;
+  border-left: 10px solid transparent;
+}
+.sample-contextual-popup.vertical.below.left::after {
+  top:0%;
+  margin-top:-10px;
+  border-right: 10px solid transparent;
+}
+/*nub positioning for left/right popups*/
+/*vertically centered nub for popups on left of activator*/
+.sample-contextual-popup.right::after {
+  left: 100%;
+  top:47%;
+  margin-right:20px;
+  border-left: 10px solid blue;
+}
+/*nub near vertical top for popups on left of activator*/
+.sample-contextual-popup.right.high::after {
+  top: 35px;
+  border-left: 10px solid blue;
+}
+/*nub near vertical bottom for popups on left of activator*/
+.sample-contextual-popup.right.low::after {
+  top:100%;
+  margin-top: -55px;
+  border-left: 10px solid blue;
+}
+/*vertically centered nub for popups on right of activator*/
+.sample-contextual-popup.left::after {
+  left: 0%;
+  margin-left: -20px;
+  top: 45%;
+  border-right: 10px solid blue;
+}
+/*nub near vertical top for popups on right of activator*/
+.sample-contextual-popup.left.high::after {
+  top: 35px;
+  border-right: 10px solid blue;
+}
+/*nub near vertical bottom for popups on right of activator*/
+.sample-contextual-popup.left.low::after {
+  top:100%;
+  margin-top: -55px;
+  border-right: 10px solid blue;
+}
+/*corners*/
+/*vertical top corners*/
+/*for popups on the left of the activator*/
+.sample-contextual-popup.vertical.below.left.corner::after {
+  top:0%;
+  left:100%;
+  margin-top:-10px;
+  margin-left:-19px;
+  border-right: 10px solid blue;
+  border-top: 10px solid transparent;
+}
+.sample-contextual-popup.vertical.below.right.corner::after {
+  top:0%;
+  left:0%;
+  margin-left: -1px;
+  border-left: 10px solid blue;
+  border-top: 10px solid transparent;
+}
+/*vertical bottom corners*/
+.sample-contextual-popup.vertical.left.above.corner::after {
+  top:100%;
+  margin-left:-19px;
+  border-right: 10px solid blue;
+  border-bottom: 10px solid transparent;
+  border-top: none;
+}
+.sample-contextual-popup.vertical.right.above.corner::after {
+  top:100%;
+  left:0%;
+  margin-left: -1px;
+  border-left: 10px solid blue;
+  border-bottom: 10px solid transparent;
+  border-top: none;
+}
+/*horizontal bottom corners*/
+.sample-contextual-popup.left.low.corner::after {
+  top:100%;
+  left:0%;
+  margin-top: -19px;
+  margin-left: -12px;
+  border-bottom: 10px solid blue;
+  border-right: 10px solid blue;
+}
+.sample-contextual-popup.right.low.corner::after {
+  top:100%;
+  left:100%;
+  margin-top: -19px;
+  border-bottom: 10px solidblue;
+  border-left: none;
+}
+/*horizontal top corners*/
+.sample-contextual-popup.left.high.corner::after {
+  top:0%;
+  left:0%;
+  margin-top: -1px;
+  margin-left: -12px;
+  border-top: 10px solid blue;
+  border-bottom: none;
+}
+.sample-contextual-popup.right.high.corner::after {
+  top:0%;
+  left:100%;
+  margin-top:-1px;
+  margin-left:-9px;
+  border-top: 10px solid blue;
+  border-bottom: none;
+}

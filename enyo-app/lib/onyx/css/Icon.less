@@ -1,0 +1,17 @@
+/* Icon.css */
+.onyx-icon, .onyx-icon-toggle {
+	width: @onyx-icon-size;
+	height: @onyx-icon-size;
+	background-repeat: no-repeat;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.onyx-icon.onyx-icon-button.active, .onyx-icon.onyx-icon-button.pressed, .onyx-icon-toggle.active {
+	background-position: 0 -@onyx-icon-size;
+}
+
+.onyx-icon.disabled {
+	opacity: @onyx-disabled-opacity;
+	filter: alpha(opacity=@onyx-disabled-opacity-ie);
+}

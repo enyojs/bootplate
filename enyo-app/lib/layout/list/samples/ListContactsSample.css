@@ -1,0 +1,57 @@
+.list-sample-contacts {
+	color: white;
+}
+.list-sample-contacts-list {
+	background: url(assets/bg.png);
+}
+/* item */
+.list-sample-contacts-item {
+	height: 100px;
+	border-top: 1px solid silver;
+	padding: 12px 16px;
+	background-color: #333333;
+}
+.list-sample-contacts-item-selected {
+	background: #226B9A url(assets/item-hilite.png) repeat-x bottom;
+}
+.list-sample-contacts-item > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+.list-sample-contacts-avatar {
+	width: 32px;
+	height: 32px;
+	padding-right: 10px;
+}
+.list-sample-contacts-description {
+	font-size: 12px;
+	color: silver;
+}
+.list-sample-contacts-remove-button {
+	float: right;
+	display: none;
+}
+/* divider */
+.list-sample-contacts-divider {
+	background-color: #666;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 8px 14px;
+}
+/* popup */
+.list-sample-contacts-popup {
+	width: 280px;
+}
+.list-sample-contacts-popup > * {
+	display: block;
+	margin: 10px 10px;
+}
+.list-sample-contacts-populate-button {
+	float: right;
+	margin-top: 25px;
+}
+.list-sample-contacts-label {
+	display: inline-block;
+	width: 120px;
+	padding-right: 10px;
+}

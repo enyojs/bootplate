@@ -1,0 +1,45 @@
+/* Input.css */
+.onyx-input-decorator {
+	padding: 6px 8px 10px 8px;
+	border-radius: @onyx-input-border-radius;
+	border: 1px solid;
+	border-color: rgba(0,0,0,0.1);
+	margin: 0;
+}
+
+.onyx-input-decorator.onyx-focused {
+	box-shadow: inset 0px 1px 4px rgba(0,0,0,0.3);
+	border-color: rgba(0,0,0,0.3);
+	background-color: @onyx-input-focused-background;
+}
+
+.onyx-input-decorator.onyx-disabled {
+	/* FIXME: needed to color a disabled input placeholder. */
+	/*-webkit-text-fill-color: #888;*/
+	opacity: @onyx-disabled-opacity;
+	filter: alpha(opacity=@onyx-disabled-opacity-ie);
+}
+
+.onyx-input-decorator > input {
+	/* reset */
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	background-color: @onyx-input-background;
+	background-image: none;
+	font-size: @onyx-input-font-size;
+	box-shadow: none;
+	/* FIXME: hack for styling reset on Android */
+	/* -webkit-appearance: caret;*/
+}
+
+.onyx-input-decorator.onyx-focused > input {
+	cursor: text;
+}
+
+.onyx-input-decorator.onyx-disabled > input {
+	cursor: default;
+}
+

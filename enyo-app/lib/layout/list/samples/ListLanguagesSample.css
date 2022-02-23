@@ -1,0 +1,64 @@
+.list-sample-language {
+	color: white;
+}
+.list-sample-language-list {
+	background: url(assets/bg.png);
+}
+.list-sample-language-item {
+	height: 80px;
+	border-top: 1px solid #000;
+	padding: 12px 16px;
+	background-color: #333333;
+	position:relative;
+}
+.list-sample-language-list .rowNumberLabel {
+	position:absolute;
+	right:15px;
+	bottom: 10px;
+	font-size:12px;
+}
+.list-sample-language-list .itemLabel {
+	font-size:24px;
+	line-height:80px;
+	padding-left:30px;
+}
+.list-sample-language-list .serialLabel {
+	position:absolute;
+	right:80px;
+	bottom: 10px;
+	font-size:12px;
+}
+.list-sample-language-list .reorderDragger {
+	background:rgb(0,0,0);
+}
+.list-sample-language-list .swipeGreen {
+	background-color:rgb(0,160,40);
+}
+.list-sample-language-list h2 {
+	margin:0;
+	padding:0 0 0 20px;
+	font-size:24px;
+	line-height:100px;
+}
+.list-sample-language-list .dropButton {
+	width:90px;
+	height:60px;
+	position:absolute;
+	top:20px;
+	right:110px;
+}
+.list-sample-language-list .cancelButton {
+	width:90px;
+	height:60px;
+	position:absolute;
+	top:20px;
+	right:10px;
+}
+.list-sample-language-list .swipeTitle {
+	font-size:30px;
+	font-weight:bold;
+	text-align:center;
+	line-height:100px;
+	padding:0;
+	margin:0;
+}

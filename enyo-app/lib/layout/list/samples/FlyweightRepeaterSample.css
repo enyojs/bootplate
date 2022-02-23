@@ -1,0 +1,16 @@
+.flyweight-repeater-sample {
+	background-color: gray;
+	position: relative;
+}
+.flyweight-repeater-sample-list {
+	position: relative;
+	width: 100%;
+	margin: auto;
+	background-color: #eee;
+}
+.flyweight-repeater-sample-item {
+	border: 1px solid silver;
+	padding: 18px;
+	font-size: 18px;
+	font-weight: bold;
+}

@@ -1,0 +1,32 @@
+/* TextArea.css */
+.onyx-input-decorator > textarea {
+	/* reset */
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	background-color: @onyx-input-background;
+	background-image: none;
+	font-size: @onyx-textarea-font-size;
+	box-shadow: none;
+	/* Remove scrollbars and resize handle */
+	resize: none;
+	overflow: auto;
+	/* FIXME: hack for styling reset on Android */
+	/* -webkit-appearance: caret;*/
+}
+
+.onyx-input-decorator.onyx-focused > textarea {
+	cursor: text;
+}
+
+.onyx-input-decorator.onyx-disabled > textarea {
+	cursor: default;
+}
+
+.onyx-textarea {
+	/* need >=50px for scrollbar to be usable on mac */
+	min-height: 50px;
+}
+
