@@ -4,7 +4,7 @@
 
 - Create your Enyo app by adding to and modifying the contents of the `enyo-app` folder
 - From the parent folder, use the command line to run `./build.sh webos`
-- Install the output ipk from `bin/` using `palm-install`
+- Install the resulting ipk from `bin/` using `palm-install`
 
 ## DIY (Manual)
 

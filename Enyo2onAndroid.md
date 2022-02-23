@@ -8,7 +8,7 @@ headers (if you control the service) or come up with a work-around (if you don't
 
 - Create your Enyo app by adding to and modifying the contents of the `enyo-app` folder
 - From the parent folder, use the command line to run `./build.sh android`
-- Install the output apk from `bin/` using `adb`
+- Install the resulting apk from `bin/` using `adb`
 
 ## DIY (Manual)
 
