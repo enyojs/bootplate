@@ -1,7 +1,6 @@
 #!/bin/bash
 
 mydir=$(cd `dirname $0` && pwd)
-rm -rf $mydir/bin/*
 mkdir $mydir/bin/ -p
 
 www=0
@@ -34,20 +33,23 @@ fi
 
 if [ $webOS -eq 1 ]; then
     echo "Building for webOS..."
+    rm -rf $mydir/bin/*.ipk
     $mydir/enyo-app/tools/deploy.sh -w
     mv $mydir/enyo-app/deploy/bin/*.ipk $mydir/bin/
 else
     echo "Building for web..."
+    rm -rf $mydir/bin/www/*
     $mydir/enyo-app/tools/deploy.sh
 fi
 
 if [ $android -eq 1 ]; then
     echo "Building for Android..."
+    rm -rf $mydir/bin/*.apk
     dirname=$mydir/cordova-app
     cd $mydir/cordova-app
     cordova platform add android
     echo "Copying to Cordova..."
-    cp $mydir/enyo-app/deploy/* $mydir/cordova-app/www -R
+    cp $mydir/enyo-app/deploy/*.apk $mydir/cordova-app/www -R
     cd $mydir/cordova-app
     echo "Building Cordova..."
     cordova build android
