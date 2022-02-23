@@ -18,7 +18,7 @@ android {
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def file = output.outputFile
-                    output.outputFile = new File(file.parent,
+                    output.outputFileName = new File(file.parent,
                         file.name.replace("android", "myappname")
                             .replace(".apk", "-" + getVersionName() + ".apk"))
 
