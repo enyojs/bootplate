@@ -4,30 +4,45 @@ mydir=$(cd `dirname $0` && pwd)
 rm -rf $mydir/bin/*
 mkdir $mydir/bin/www -p
 
+www=0
 webOS=0
 android=0
-luneOS=0
 for arg in "$@"; do
     if [ "$arg" = 'webos' ]; then
+        webOS=1
+    fi
+    if [ "$arg" = 'luneos' ]; then
         webOS=1
     fi
     if [ "$arg" = 'android' ]; then
         android=1
     fi
-    if [ "$arg" = 'luneos' ]; then
-        webOS=1
+    if [ "$arg" = 'www' ]; then
+        www=1
+    fi
+    if [ "$arg" = 'web' ]; then
+        www=1
     fi
 done
 
+if [[ $www -eq 0 ]] && [[ $webOS -eq 0 ]] && [[ $android -eq 0 ]] ; then
+    echo "No build target specified"
+    echo "Allowed: webOS web android"
+    echo "(or any combination)"
+    exit
+fi
+
 if [ $webOS -eq 1 ]; then
-    echo "Building for web and webOS..."
+    echo "Building for webOS..."
     $mydir/enyo-app/tools/deploy.sh -w
     mv $mydir/enyo-app/deploy/bin/*.ipk $mydir/bin/
 else
     echo "Building for web..."
     $mydir/enyo-app/tools/deploy.sh
 fi
-cp $mydir/enyo-app/deploy/* $mydir/bin/www/ -R
+if [ $www -eq 1 ]; then
+    cp $mydir/enyo-app/deploy/* $mydir/bin/www/ -R
+fi
 
 if [ $android -eq 1 ]; then
     echo "Building for Android..."
