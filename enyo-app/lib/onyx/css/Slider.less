@@ -1,0 +1,24 @@
+/* Slider.css */
+.onyx-slider {
+	position: relative;
+	margin: 8px 20px;
+}
+
+.onyx-slider-taparea {
+	position: absolute;
+	top: -11px;
+	height: 28px;
+	width: 100%;
+}
+
+.onyx-slider-knob {
+	position: relative;
+	height: @onyx-slider-knob-image-height;
+	width: @onyx-slider-knob-image-width;
+	background: @onyx-slider-knob-image left top no-repeat;
+	margin: -23px -20px;
+}
+
+.onyx-slider-knob.active, .onyx-slider-knob.pressed {
+	background-position: 0 -40px;
+}

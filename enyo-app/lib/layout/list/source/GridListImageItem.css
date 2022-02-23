@@ -1,0 +1,56 @@
+/*
+	Put anything you reference with "url()" in ../assets/
+	This way, you can minify your application, and just remove the "source" folder for production
+*/
+.enyo-gridlist-imageitem {
+	width: 100%;
+	height: 100%;
+	color: #fff;
+}
+.enyo-gridlist-imageitem img {
+	display: block;
+	width: 100%;
+}
+.enyo-gridlist-imageitem >.caption,
+.enyo-gridlist-imageitem >.sub-caption {
+	font-size: 10pt;
+	z-index: 10;
+	padding-top: 10px;
+	width: 100%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	color: #fff;
+}
+.enyo-gridlist-imageitem.centered > .caption,
+.enyo-gridlist-imageitem.centered > .sub-caption {
+	text-align: center;
+}
+.enyo-gridlist-imageitem.disabled {
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+}
+
+.enyo-gridlist-imageitem.sized-image.use-caption.use-subcaption {
+	padding-bottom: 50px;
+}
+.enyo-gridlist-imageitem.sized-image.use-caption,
+.enyo-gridlist-imageitem.sized-image.use-subcaption {
+	padding-bottom: 25px;
+}
+.enyo-gridlist-imageitem.sized-image > .image {
+	width: 100%;
+	height: 100%;
+}
+.enyo-gridlist-imageitem.sized-image.use-caption.use-subcaption > .caption {
+	position: absolute;
+	bottom: 22px;
+}
+.enyo-gridlist-imageitem.sized-image > .caption {
+	position: absolute;
+	bottom: 0;
+}
+.enyo-gridlist-imageitem.sized-image > .sub-caption {
+	position: absolute;
+	bottom: 0;
+}

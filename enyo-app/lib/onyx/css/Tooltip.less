@@ -1,0 +1,70 @@
+/* Tooltip.css */
+.onyx-tooltip {
+	z-index: 20;
+	left: 0;
+	padding: 4px 6px;
+	margin-top: 4px;
+	margin-left: -6px;
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+	border: 1px solid rgba(0,0,0,0.2);
+	color: @onyx-tooltip-text-color;
+	background: @onyx-tooltip-background @onyx-tooltip-gradient repeat-x 0 bottom;
+	border-radius: @onyx-tooltip-border-radius;
+	white-space: nowrap;
+}
+
+/*move the tooltip over to the right when displaying the right arrow so it aligns better with the decorator*/
+.onyx-tooltip.right-arrow {
+	left: 30px;
+}
+
+/*prep the left & right arrows using before & after - left arrow uses before & right arrow uses after*/
+.onyx-tooltip::before {
+	content: '';
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	position: absolute;
+	top: -6px;
+	left: 16px;
+}
+
+.onyx-tooltip::after {
+	content: '';
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	position: absolute;
+	top: -6px;
+	margin-left: -12px;
+}
+
+/*The following 3 rules handle the left & right arrows when the tooltip is displayed below the activator*/
+.onyx-tooltip.below {
+	top: 100%;
+}
+
+.onyx-tooltip.below.right-arrow::after {
+	border-bottom: 6px solid #1D587F;
+	top: -6px;
+}
+
+.onyx-tooltip.below.left-arrow::before {
+	border-bottom: 6px solid #1D587F;
+	top: -6px;
+}
+
+/*The following 3 rules handle the left & right arrows when the tooltip is displayed above the activator*/
+.onyx-tooltip.above {
+	top: -100%;
+}
+
+.onyx-tooltip.above.right-arrow::after {
+	content: '';
+	border-top: 6px solid #1D587F;
+	top: 100%;
+}
+
+.onyx-tooltip.above.left-arrow::before {
+	content: '';
+	border-top: 6px solid #1D587F;
+	top: 100%;
+}

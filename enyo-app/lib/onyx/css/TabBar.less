@@ -1,0 +1,41 @@
+/* TabBar.css */
+
+@tab-bar-top-clearance: 1px ;
+@tab-strong: @onyx-light-background;
+@tab-border: darken(@tab-strong, 40%);
+@tab-inactive: darken(@tab-strong, 10%);
+
+
+.onyx-tab-bar {
+	width: 100%;
+	z-index: 10;
+	background-color: @onyx-light-background;
+	padding-top: @tab-bar-top-clearance;
+}
+
+.onyx-tab-bar-scroller {
+	padding-top: 2px;
+
+	> .enyo-thumb {
+		border: 0px;
+	}
+
+}
+
+.onyx-tab-wrapper {
+	padding: 3px 0px 3px 0px;
+}
+
+.onyx-tab-line {
+	position: relative;
+	margin-top: -0.1em;
+	border-top: 1px solid @tab-border;
+	z-index: 2;
+}
+
+.onyx-tab-rug {
+	position: relative;
+	padding: 0.3em;
+	background-color: @tab-strong ;
+	z-index: 4;
+}

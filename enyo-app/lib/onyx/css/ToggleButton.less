@@ -1,0 +1,65 @@
+/* ToggleButton.css */
+.onyx-toggle-button {
+	display: inline-block;
+	height: 32px;
+	line-height: 32px;
+	min-width: 64px;
+	vertical-align: middle;
+	text-align: center;
+	/* */
+	border-radius: @onyx-togglebutton-border-radius;
+	box-shadow: inset 0px 1px 3px rgba(0,0,0,0.4);
+	background: @onyx-togglebutton-background @onyx-togglebutton-gradient repeat-x bottom;
+	background-size: auto 100%;
+	/* label */
+	color: @onyx-togglebutton-text-color;
+	font-size: @onyx-togglebutton-font-size;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.onyx-toggle-button.off {
+	background-color: @onyx-togglebutton-off-background !important;
+}
+
+.onyx-toggle-button-knob {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	margin: 1px;
+	border-radius: @onyx-togglebutton-border-radius;
+	background: @onyx-togglebutton-knob-background @onyx-togglebutton-knob-gradient repeat-x;
+	background-size: auto 100%;
+}
+
+.onyx-toggle-button .onyx-toggle-button-knob {
+	box-shadow: -1px 0px 4px rgba(0,0,0,0.35), inset 0 -1px 0 rgba(0,0,0,0.4);
+	float: right;
+}
+
+.onyx-toggle-button.off .onyx-toggle-button-knob {
+	box-shadow: 1px 0px 4px rgba(0,0,0,0.35), inset 0 -1px 0 rgba(0,0,0,0.4);
+	float: left;
+}
+
+.onyx-toggle-button.disabled, .onyx-icon-button.disabled {
+	opacity: @onyx-disabled-opacity;
+	filter: alpha(opacity=@onyx-disabled-opacity-ie);
+}
+
+.onyx-toggle-content {
+	min-width: 32px;
+	padding: 0 6px;
+}
+
+.onyx-toggle-content.empty {
+	padding: 0;
+}
+
+.onyx-toggle-content.off {
+	float: right;
+}
+
+.onyx-toggle-content.on {
+	float: left;
+}

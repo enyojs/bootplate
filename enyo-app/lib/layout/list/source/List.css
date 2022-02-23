@@ -1,0 +1,73 @@
+.enyo-list {
+	position: relative;
+}
+
+.enyo-list-port {
+	overflow: hidden;
+	position: relative;
+}
+
+.enyo-list-holdingarea {
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
+.enyo-list-port.horizontal {
+	white-space: nowrap;
+	width:  1000000px;
+	height: 1000000px;
+}
+
+.enyo-list-port.vertical {
+	height: 1000000px;
+}
+
+.enyo-list-page {
+	position: absolute;
+	left: 0;
+}
+
+.enyo-locale-right-to-left .enyo-list-page {
+	left: auto;
+	right: 0;
+}
+
+.enyo-list-page.vertical {
+	left: 0;
+	right: 0;
+}
+
+.enyo-list-holdingarea {
+	top: -10000px;
+}
+
+.enyo-pinned-list-placeholder {
+	border: 1px solid red;
+	position: absolute;
+	top: 0; left: 0;
+	z-index: 1000;
+	background: transparent;
+	overflow: hidden;
+}
+
+.enyo-pinned-list-placeholder button {
+	width: 100px; height: 100%;
+	position: absolute;
+	top: 0; right: 0;
+}
+
+.enyo-list-reorder-container {
+	position: absolute;
+	top: 0; left: 0;
+	z-index: 1000;
+	background: transparent;
+	overflow: hidden;
+}
+
+.enyo-animatedTopAndLeft {
+	-webkit-transition: top 0.1s linear, left 0.1s linear;
+	-moz-transition: top 0.1s linear, left 0.1s linear;
+	-o-transition: top 0.1s linear, left 0.1s linear;
+	transition: top 0.1s linear, left 0.1s linear;
+}

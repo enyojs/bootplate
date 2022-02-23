@@ -1,0 +1,16 @@
+a:link, a:visited {
+	color: lightblue;
+	text-decoration: underline;
+}
+.list-sample-pulldown-list {
+	background: grey;
+}
+.list-sample-pulldown-item {
+	border-bottom: 1px solid #0E0E0E;
+	padding: 12px 16px;
+	background-color: #333333;
+	/**/
+	font-size: 14px;
+	color: white;
+	overflow: hidden;
+}

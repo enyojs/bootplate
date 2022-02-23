@@ -1,0 +1,38 @@
+/* ProgressButton.css */
+.onyx-progress-button {
+	position: relative;
+	height: 36px;
+	line-height: 36px;
+	color: @onyx-progressbutton-text-color;
+	font-size: @onyx-progressbutton-font-size;
+	text-overflow: ellipsis;
+}
+
+.onyx-progress-button-bar {
+	height: 36px;
+}
+
+.onyx-progress-button-icon {
+	display: inline-block;
+	position: absolute;
+	top: 2px;
+	right: 0;
+}
+
+.onyx-progress-button-client {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 36px;
+	margin-left: 8px;
+}
+
+.onyx-progress-button-client > * {
+	display: inline-block;
+}
+
+/* needed for MathJax support */
+.onyx-progress-button-client > script {
+	display: none;
+}

@@ -1,0 +1,80 @@
+/* onyx-classes.less - combined CSS (less) files for all released Onyx controls
+   into single onyx.less file to avoid IE bug that allows
+   a maximum of 31 style sheets to be loaded before silently failing */
+
+.onyx {
+	color: @onyx-text-color;
+	font-family: @onyx-font-family;
+	font-size: @onyx-font-size;
+	cursor: default;
+	background-color: @onyx-background;
+	/* remove automatic tap highlight color */
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* prevent IE from inheriting line-height for these elements */
+.onyx-button, .onyx label, .onyx input {
+	line-height: normal;
+}
+
+.onyx-selected {
+	background-color: @onyx-selected-background;
+}
+
+/* LESS pre-calculations */
+@onyx-disabled-opacity-ie: @onyx-disabled-opacity*100;
+
+
+/* Individual Widget CSS */
+
+@import "Icon.less";
+@import "Button.less";
+@import "Checkbox.less";
+@import "Grabber.less";
+@import "Popup.less";
+@import "Groupbox.less";
+@import "Input.less";
+@import "Menu.less";
+@import "Submenu.less";
+@import "Picker.less";
+@import "TextArea.less";
+@import "RichText.less";
+@import "RadioButton.less";
+@import "TabButton.less";
+@import "TabBar.less";
+@import "TabBarItem.less";
+@import "ToggleButton.less";
+@import "Toolbar.less";
+@import "Tooltip.less";
+@import "ProgressBar.less";
+@import "ProgressButton.less";
+@import "Slider.less";
+@import "RangeSlider.less";
+@import "Item.less";
+@import "Spinner.less";
+@import "MoreToolbar.less";
+@import "DatePicker.less";
+@import "TimePicker.less";
+@import "ButtonColors.less";
+@import "ContextualPopup.less";
+
+/* some default colors */
+.onyx-dark {
+	background-color: @onyx-dark-background;
+}
+
+.onyx-light {
+	background-color: @onyx-light-background;
+}
+
+.onyx-green {
+	background-color: #91BA07;
+}
+
+.onyx-red {
+	background-color: #C51616;
+}
+
+.onyx-blue {
+	background-color: #35A8EE;
+}

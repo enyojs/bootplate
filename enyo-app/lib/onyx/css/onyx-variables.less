@@ -1,0 +1,144 @@
+/* Paths */
+/* application importing Onyx Less files will have to override this  */
+/* variable. Otherwise, Onyx image load will fail with a 404 error  */
+@onyx-image-path: '../images';
+
+
+/* Fonts */
+/* ---------------------------------------*/
+@onyx-font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif;
+@onyx-font-size-small: 14px;
+@onyx-font-size-medium: 16px;
+@onyx-font-size-large: 20px;
+
+@onyx-button-font-size: @onyx-font-size-medium;
+@onyx-font-size: @onyx-font-size-large;
+@onyx-groupbox-font-size: @onyx-font-size-medium;
+@onyx-groupbox-header-font-size: @onyx-font-size-small;
+@onyx-input-font-size: @onyx-font-size-medium;
+@onyx-popup-font-size: @onyx-font-size-medium;
+@onyx-progressbutton-font-size: @onyx-font-size-medium;
+@onyx-radiobutton-font-size: @onyx-font-size-medium;
+@onyx-richtext-font-size: @onyx-font-size-medium;
+@onyx-tabbutton-font-size: @onyx-font-size-large;
+@onyx-textarea-font-size: @onyx-font-size-medium;
+@onyx-togglebutton-font-size: @onyx-font-size-small;
+@onyx-toolbar-font-size: @onyx-font-size-large;
+@onyx-toolbar-input-font-size: @onyx-font-size-small;
+
+/* Text Colors */
+/* ---------------------------------------*/
+@onyx-button-text-color: #292929;
+@onyx-groupbox-text-color: white;
+@onyx-picker-text-color: black;
+@onyx-popup-text-color: white;
+@onyx-progressbutton-text-color: #F1F1F1;
+@onyx-radiobutton-active-text-color: white;
+@onyx-text-color: #333333;
+@onyx-togglebutton-text-color: white;
+@onyx-toolbar-button-text-color: #F2F2F2;
+@onyx-toolbar-input-focus-text-color: #000;
+@onyx-toolbar-input-placeholder-text-color: #ddd;
+@onyx-toolbar-input-text-color: #e5e5e5;
+@onyx-toolbar-text-color: white;
+@onyx-tooltip-text-color: white;
+
+/* Background Colors */
+/* ---------------------------------------*/
+@onyx-background: #EAEAEA;
+@onyx-light-background: color("#CACACA");
+@onyx-dark-background: #555656;
+@onyx-selected-background: #C4E3FE;
+
+@onyx-button-background: #E1E1E1;
+@onyx-groupbox-background: #4C4C4C;
+@onyx-highlight-background: #DEDFDF;
+@onyx-input-background: transparent;
+@onyx-input-focused-background: white;
+@onyx-menu-item-hover: #284152;
+@onyx-picker-background: #E1E1E1;
+@onyx-picker-item-background: #cde7fe;
+@onyx-popup-background: #4C4C4C;
+@onyx-progressbar-background: #B8B8B8;
+@onyx-progressbar-bar-background: #58ABEF;
+@onyx-radiobutton-active-background: #0091F2;
+@onyx-radiobutton-background: #E7E7E7;
+@onyx-switeable-item-background: #EAEAEA;
+@onyx-togglebutton-background: #8BBA3D;
+@onyx-togglebutton-knob-background: #F6F6F6;
+@onyx-togglebutton-off-background: #B1B1B1;
+@onyx-toolbar-background: #4C4C4C;
+@onyx-toolbar-button-background: #555656;
+@onyx-toolbar-input-background: rgba(0, 0, 0, 0.1);
+@onyx-toolbar-input-focused-background: white;
+@onyx-tooltip-background: #216593;
+
+/* Border Radius */
+/* ---------------------------------------*/
+@onyx-border-radius: 4px;
+@onyx-border-radius-tight: 3px;
+
+@onyx-button-border-radius: @onyx-border-radius-tight;
+@onyx-groupbox-border-radius: @onyx-border-radius;
+@onyx-input-border-radius: @onyx-border-radius-tight;
+@onyx-menu-border-radius: @onyx-border-radius-tight;
+@onyx-progressbar-border-radius: @onyx-border-radius-tight;
+@onyx-radiobutton-border-radius: @onyx-border-radius-tight;
+@onyx-togglebutton-border-radius: @onyx-border-radius-tight;
+@onyx-tooltip-border-radius: @onyx-border-radius-tight;
+
+/* Padding */
+/* ---------------------------------------*/
+@onyx-button-padding-lr: 18px;
+@onyx-button-padding-tb: 6px;
+@onyx-tabbutton-padding-lr: 34px;
+@onyx-tabbutton-padding-tb: 8px;
+
+/* Icon Sizes */
+/* ---------------------------------------*/
+@onyx-icon-size: 32px;
+
+/* Disabled Opacity */
+/* ---------------------------------------*/
+@onyx-disabled-opacity: 0.4;
+
+/* Gradient Overlays */
+/* ---------------------------------------*/
+@onyx-gradient: url("@{onyx-image-path}/gradient.png");
+@onyx-gradient-invert: url("@{onyx-image-path}/gradient-invert.png");
+
+@onyx-button-active-gradient: @onyx-gradient-invert;
+@onyx-button-gradient: @onyx-gradient;
+@onyx-groupbox-gradient: @onyx-gradient;
+@onyx-popup-gradient: @onyx-gradient;
+@onyx-progressbar-bar-gradient: @onyx-gradient;
+@onyx-progressbar-gradient: @onyx-gradient-invert;
+@onyx-radiobutton-active-gradient: @onyx-gradient-invert;
+@onyx-radiobutton-gradient: @onyx-gradient;
+@onyx-togglebutton-gradient: @onyx-gradient-invert;
+@onyx-togglebutton-knob-gradient: @onyx-gradient;
+@onyx-toolbar-gradient: @onyx-gradient;
+@onyx-tooltip-gradient: @onyx-gradient;
+
+/* Images */
+/* ---------------------------------------*/
+@onyx-checkbox-image: url("@{onyx-image-path}/checkbox.png");
+@onyx-checkbox-image-height: 32px;
+@onyx-checkbox-image-width: 32px;
+
+@onyx-grabber-image: url("@{onyx-image-path}/grabbutton.png");
+@onyx-grabber-image-height: 27px;
+@onyx-grabber-image-width: 23px;
+
+@onyx-more-toolbar-button-image: url("@{onyx-image-path}/more.png");
+@onyx-more-toolbar-button-image-height: 32px;
+@onyx-more-toolbar-button-image-width: 32px;
+
+@onyx-slider-knob-image: url("@{onyx-image-path}/slider-handle.png");
+@onyx-slider-knob-image-height: 40px;
+@onyx-slider-knob-image-width: 40px;
+
+@onyx-spinner-dark-image: url("@{onyx-image-path}/spinner-dark.gif");
+@onyx-spinner-light-image: url("@{onyx-image-path}/spinner-light.gif");
+@onyx-spinner-image-width: 59px;
+@onyx-spinner-image-height: 58px;

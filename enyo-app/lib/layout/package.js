@@ -1,0 +1,11 @@
+enyo.depends(
+	'version.js',
+	'contextual',
+	'fittable',
+	'list',
+	'slideable',
+	'panels',
+	'tree',
+	'imageview',
+	'layout.design'
+);

@@ -1,0 +1,40 @@
+.panels-sample-panels {
+	min-height: 320px;
+	min-width: 320px;
+}
+
+.panels-sample-panels > * {
+	border: 2px solid #333;
+	font-size: 5em;
+	text-align: center;
+}
+
+.panels-sample-wide > * {
+	min-width: 50%;
+}
+
+.panels-sample-collapsible > * {
+	min-width: 250px;
+}
+
+.panels-sample-spiral > * {
+	min-width:150px;
+	min-height:150px;
+	max-height:150px;
+	max-width:150px;
+}
+
+.panels-sample-grid > * {
+	min-width:150px;
+	min-height:150px;
+	max-height:150px;
+	max-width:150px;
+}
+.arranger-scroller {
+}
+
+@media screen and (max-width: 480px) {
+	.arranger-scroller {
+		max-height: 270px;
+	}
+}

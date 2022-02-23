@@ -1,0 +1,10 @@
+enyo.depends(
+	'Arranger.js',
+	'Arranger.css',
+	'CardArranger.js',
+	'CardSlideInArranger.js',
+	'CarouselArranger.js',
+	'CollapsingArranger.js',
+	'DockRightArranger.js',
+	'OtherArrangers.js'
+);

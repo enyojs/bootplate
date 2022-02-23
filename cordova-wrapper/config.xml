@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.enyo2.cordova.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Enyo2App</name>
+    <description>Sample Enyo2 Cordova App</description>
+    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
+        webOS Archive
+    </author>
+    <icon src="www/img/icon-256.png" />
+    <content src="index.html" />
+    <allow-intent href="*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="data:*" />
+    <access origin="*" />
+    <preference name="Scheme" value="http" />
+    <platform name="android">
+        <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application">
+            <application android:usesCleartextTraffic="true" />
+        </edit-config>
+    </platform>
+</widget>

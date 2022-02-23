@@ -1,0 +1,128 @@
+.enyo-fittable-rows-layout {
+	position: relative;
+}
+
+.enyo-fittable-rows-layout > * {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	/* float when not stretched */
+	float: left;
+	clear: both;
+}
+
+/* non-floating when stretched */
+.enyo-fittable-rows-layout.enyo-stretch > * {
+	float: none;
+	clear: none;
+}
+
+/* setting to enforce margin collapsing */
+/* NOTE: rows cannot have margin left/right */
+.enyo-fittable-rows-layout.enyo-stretch.enyo-margin-expand > * {
+	float: left;
+	clear: both;
+	width: 100%;
+	/* note: harsh resets */
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+.enyo-fittable-columns-layout {
+	position: relative;
+	text-align: left;
+	white-space: nowrap;
+}
+
+.enyo-locale-right-to-left .enyo-fittable-columns-layout {
+	text-align: right;
+}
+
+.enyo-fittable-columns-layout.enyo-center,
+.enyo-locale-right-to-left .enyo-fittable-columns-layout.enyo-center {
+	text-align: center;
+}
+
+.enyo-fittable-columns-layout > * {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	vertical-align: top;
+	display: inline-block;
+	white-space: normal;
+}
+
+.enyo-fittable-columns-layout > table {
+	display: inline-table;
+}
+
+.enyo-fittable-columns-layout.enyo-tool-decorator > * {
+	vertical-align: middle;
+}
+
+/* repair clobbered white-space setting for pre, code */
+.enyo-fittable-columns-layout > pre, .enyo-fittable-columns-layout > code {
+	white-space: pre;
+}
+
+.enyo-fittable-columns-layout > .enyo-fittable-columns-layout, .enyo-fittable-columns-layout > .onyx-toolbar-inline {
+	white-space: nowrap;
+}
+
+/* NOTE: columns cannot have margin top/bottom */
+.enyo-fittable-columns-layout.enyo-stretch > * {
+	height: 100%;
+	/* note: harsh resets */
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+.enyo-locale-right-to-left .enyo-fittable-columns-layout {
+	direction: rtl;
+	text-align: right;
+}
+.enyo-locale-right-to-left .enyo-fittable-columns-layout.force-left-to-right {
+	direction: ltr;
+	text-align: left;
+}
+
+
+.enyo-flex-container {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+.enyo-flex-container.enyo-center {
+	justify-content: center;
+}
+.enyo-flex-container.columns {
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+}
+.enyo-flex-container.rows {
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+}
+.enyo-flex-item {
+	-webkit-box-flex: 0;
+	-moz-box-flex: 0;
+	-webkit-flex: 0 0 auto;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+}
+.enyo-flex-item.flex {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-webkit-flex: 1 1 auto;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+}
+.enyo-flex-container.nostretch > .enyo-flex-item {
+	-webkit-align-self: flex-start;
+	-ms-flex-item-align: flex-start;
+	align-self: flex-start;
+}

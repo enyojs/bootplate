@@ -1,0 +1,42 @@
+.list-sample-persistent-swipeable-item {
+	color: white;
+}
+.list-sample-persistent-swipeable-item-list {
+	background: url(assets/bg.png);
+}
+.list-sample-persistent-swipeable-item-item {
+	height: 80px;
+	border-top: 1px solid #000;
+	padding: 12px 16px;
+	background-color:rgba(0,0,0,0.5);
+}
+.list-sample-contacts-item > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+.list-sample-persistent-swipeable-item-list .itemLabel {
+	float:left;
+	font-size:24px;
+	line-height:80px;
+	padding-left:20px;
+}
+.list-sample-persistent-swipeable-item-list .swipeGreen {
+	background-color:rgba(0,160,40,0.8);
+}
+.list-sample-persistent-swipeable-item-list .swipeRed {
+	background-color:rgba(160,0,40,0.8);
+}
+.list-sample-persistent-swipeable-item-list h2 {
+	margin:0px;
+	padding:0px 0px 0px 20px;
+	font-size:24px;
+	line-height:100px;
+}
+.list-sample-persistent-swipeable-item-list .swipeTitle {
+	font-size:30px;
+	font-weight:bold;
+	text-align:center;
+	line-height:100px;
+	padding:0px;
+	margin:0px;
+}

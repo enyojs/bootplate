@@ -1,0 +1,49 @@
+/* Picker.css */
+.onyx-picker-decorator .onyx-button {
+	padding: 10px 18px;
+}
+
+.onyx-picker {
+	top: 0;
+	margin-top: -3px;
+	min-width: 0;
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	color: black;
+	background: @onyx-picker-background;
+}
+
+.onyx-picker.onyx-menu-up {
+	top: auto;
+	bottom: 0;
+	margin-top: 3px;
+	margin-bottom: -3px;
+}
+
+.onyx-picker .onyx-menu-item {
+	text-align: center;
+}
+
+.onyx-picker .onyx-menu-item:hover {
+	background-color: transparent;
+}
+
+.onyx-picker .onyx-menu-item.selected, .onyx-picker .onyx-menu-item.active, .onyx-picker .onyx-menu-item:active:hover {
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	background-color: @onyx-picker-item-background;
+	box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.2);
+}
+
+.onyx-picker .onyx-menu-item {
+	border-top: 1px solid rgba(255,255,255,0.5);
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.onyx-picker:not(.onyx-flyweight-picker) .onyx-menu-item:first-child, .onyx-flyweight-picker :first-child > .onyx-menu-item {
+	border-top: none;
+}
+
+.onyx-picker:not(.onyx-flyweight-picker) .onyx-menu-item:last-child, .onyx-flyweight-picker :last-child > .onyx-menu-item {
+	border-bottom: none;
+}

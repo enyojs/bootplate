@@ -1,0 +1,64 @@
+/* Menu.css */
+.onyx-menu, .onyx.onyx-menu {
+	min-width: 160px;
+	top: 100%;
+	left: 0;
+	margin-top: 2px;
+	padding: 3px 0;
+	border-radius: @onyx-menu-border-radius;
+}
+
+.onyx-menu.onyx-menu-up {
+	top: auto;
+	bottom: 100%;
+	margin-top: 0;
+	margin-bottom: 2px;
+}
+
+.onyx-toolbar .onyx-menu {
+	margin-top: 11px;
+	border-radius: 0 0 @onyx-menu-border-radius @onyx-menu-border-radius;
+}
+
+
+.onyx-toolbar .onyx-menu.onyx-menu-up {
+	margin-top: 0;
+	margin-bottom: 10px;
+	border-radius: @onyx-menu-border-radius @onyx-menu-border-radius 0 0;
+}
+
+.onyx-menu-item {
+	display: block;
+	padding: 10px;
+}
+
+.onyx-menu-item:hover {
+	background: @onyx-menu-item-hover;
+}
+
+.onyx-menu-divider, .onyx-menu-divider:hover {
+	margin: 6px 0;
+	padding: 0;
+	border-bottom: 1px solid #aaa;
+}
+
+.onyx-menu-label {
+	cursor: default;
+	-webkit-user-select: none;
+	-moz-user-select: -moz-none;
+	user-select: none;
+	opacity: @onyx-disabled-opacity;
+	filter: alpha(opacity=@onyx-disabled-opacity-ie);
+}
+
+.onyx-menu-label:hover {
+	background: none;
+}
+
+/* customize a toolbar to support menus */
+.onyx-menu-toolbar, .onyx-toolbar.onyx-menu-toolbar {
+	position: relative;
+	z-index: 10;
+	overflow: visible;
+}
+
