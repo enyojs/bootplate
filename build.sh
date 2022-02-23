@@ -34,14 +34,14 @@ fi
 if [ $webOS -eq 1 ]; then
     echo "Building for webOS..."
     rm -rf $mydir/bin/*.ipk
+    rm -rf $mydir/bin/www/*
     cp $mydir/cordova-webos.js $mydir/enyo-app/cordova.js -f
     $mydir/enyo-app/tools/deploy.sh -w
     mv $mydir/enyo-app/deploy/bin/*.ipk $mydir/bin/
 else
     echo "Building for www..."
-    rm -rf $mydir/bin/www/*
+    $mydir/enyo-app/tools/deploy.sh
 fi
-$mydir/enyo-app/tools/deploy.sh
 
 if [ $android -eq 1 ]; then
     echo "Building for Android..."
