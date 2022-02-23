@@ -10,7 +10,7 @@
 - Copy the resulting build output from the Enyo `deploy` folder to the Cordova `www` folder (eg: `hello\www`)
 - Use the `config.xml` included in this project to add the Android namespace and security exeptions
 - Add the security exemption meta tag to your .html files in `www`:
-    - <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    - `<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">`
 - Build your combined webOS + Cordova app for Android:
     - `cordova build android`
 - Use `adb` to install the result apk to your Android device.
