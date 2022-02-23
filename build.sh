@@ -39,7 +39,7 @@ if [ $android -eq 1 ]; then
     cp $mydir/enyo-app/deploy/* $mydir/cordova-app/www -R
     cd $mydir/cordova-app
     echo "Building Cordova..."
-    cordova build android
+    cordova build android --buildConfig=build.json
     cp $mydir/cordova-app/platforms/android/app/build/outputs/apk/debug/* $mydir/bin/
 fi
 
