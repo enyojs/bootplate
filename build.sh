@@ -38,10 +38,10 @@ if [ $webOS -eq 1 ]; then
     $mydir/enyo-app/tools/deploy.sh -w
     mv $mydir/enyo-app/deploy/bin/*.ipk $mydir/bin/
 else
-    echo "Building for web..."
+    echo "Building for www..."
     rm -rf $mydir/bin/www/*
-    $mydir/enyo-app/tools/deploy.sh
 fi
+$mydir/enyo-app/tools/deploy.sh
 
 if [ $android -eq 1 ]; then
     echo "Building for Android..."
@@ -50,7 +50,6 @@ if [ $android -eq 1 ]; then
     cd $mydir/cordova-app
     cordova platform add android
     echo "Copying to Cordova..."
-    echo "/* For backward compatibility with legacy webOS, do not modify */" > $mydir/enyo-app/cordova.js
     cp $mydir/enyo-app/deploy/* $mydir/cordova-app/www -R
     cd $mydir/cordova-app
     echo "Building Cordova..."
